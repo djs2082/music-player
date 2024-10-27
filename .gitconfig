@@ -1,0 +1,6 @@
+[user]
+	name = Dilip Joshi
+	email = dilipjoshis98@gmail.com
+	signingkey = 745F440B61A3B9D0
+[commit]
+	gpgsign = true
