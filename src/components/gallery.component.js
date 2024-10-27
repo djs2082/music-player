@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Sound from 'react-sound';
 
 
 import '../css/gallery.css';

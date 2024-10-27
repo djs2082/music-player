@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import './index.css';
-import { SERVER_URL, WEB_APP_URL } from '../../constants';
+import { WEB_APP_URL } from '../../constants';
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -37,7 +35,7 @@ const Login = () => {
         navigate('/gallery')
       }
     }
-  }, [])
+  }, [navigate])
 
   const spotifyLoginEndPoint = "https://accounts.spotify.com/authorize";
   const redirectUrl = WEB_APP_URL
@@ -68,40 +66,11 @@ const Login = () => {
     return paramsSplitUp;
   }
 
-  const onSubmit = (e) => {
-    console.log(userName, password)
-    e.preventDefault();
-
-    axios.post(`${SERVER_URL}/api/token/`, { username: userName, password })
-      .then(response => {
-        console.log(response)
-        if (response.status === 200) {
-          sessionStorage.setItem('access_token', response.data.access);
-          navigate('/gallery')
-        }
-      })
-      .catch(error => {
-        console.log(error.toString())
-      });
 
 
-
-  }
-
-  const onSpotifyLogin = () => {
-    axios.post(`${SERVER_URL}images/auth`)
-
-  }
 
   return (
     <div class="login-page">
-      {/* <div class="form">
-        <form class="login-form" onSubmit={onSubmit}>
-          <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="username" />
-          <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="password" />
-          <button>login</button>
-        </form>
-      </div> */}
       <button onClick={handleLogin} >SignIn with Spotify</button>
     </div>
   )

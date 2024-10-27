@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 
 const SpotifyPlayer = (props) => {
-  const spotifyPlayListId = "5iLgD55NtxGmVFvjy8Fhpl";
+  // const spotifyPlayListId = "5iLgD55NtxGmVFvjy8Fhpl";
 
   useEffect(() => {
     const songs = localStorage.getItem('tracks').split(',')
@@ -57,7 +56,7 @@ const SpotifyPlayer = (props) => {
         // element.remove();
       }
     };
-  }, [])
+  }, [props.id])
 
   return (
     <div id={`embed-iframe-${props.id}`}></div>
