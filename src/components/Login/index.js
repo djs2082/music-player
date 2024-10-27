@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
 import { WEB_APP_URL } from '../../constants';
