@@ -10,7 +10,7 @@ import image2 from './images/image2.jpeg'
 import image3 from './images/image3.jpeg'
 import image4 from './images/image4.jpeg'
 import image5 from './images/image5.jpeg'
-
+import image6 from './images/image6.jpeg'
 class Gallery extends Component {
   constructor(props) {
     super(props);
@@ -30,11 +30,16 @@ class Gallery extends Component {
       }, {
         image_id: 5,
         image: image5
+      }, {
+        image_id: 6,
+        image: image6
       }],
       song: `${SERVER_URL}/media/songs/Jeena.mp3`,
       play: false,
       tracks: [],
-      flippedImageId: null
+      flippedImageId: null,
+      isPhotoClicked: false,
+      songCount: 0,
     }
     this.audio = new Audio("")
 
@@ -102,26 +107,27 @@ class Gallery extends Component {
 
   }
   togglePlay = () => {
-    let index = Math.floor(Math.random() * (this.state.songs.length - 0) + 0);
-    let songs = this.state.songs;
-    songs[index].play = true
-    let song = songs[index].song
-    this.audio.pause()
-    if ('audio' in songs[index]) {
-      this.audio = songs[index].audio
-    }
-    else {
-      songs[index].audio = new Audio(SERVER_URL + song)
-      this.audio = songs[index].audio
-    }
+    this.setState({ isPhotoClicked: true, songCount: this.state.songCount + 1 })
+    // let index = Math.floor(Math.random() * (this.state.songs.length - 0) + 0);
+    // let songs = this.state.songs;
+    // songs[index].play = true
+    // let song = songs[index].song
+    // this.audio.pause()
+    // if ('audio' in songs[index]) {
+    //   this.audio = songs[index].audio
+    // }
+    // else {
+    //   songs[index].audio = new Audio(SERVER_URL + song)
+    //   this.audio = songs[index].audio
+    // }
 
-    this.audio.play()
+    // this.audio.play()
 
-    console.log(index)
+    // console.log(index)
 
-    this.setState({ songs: songs, song: SERVER_URL + song }, () => {
+    // this.setState({ songs: songs, song: SERVER_URL + song }, () => {
 
-    });
+    // });
   }
 
   imageClicked = (id) => {
@@ -131,43 +137,27 @@ class Gallery extends Component {
 
   render() {
     var i = -1;
-    // var images = this.state.images.map(image => {
-    //   i++;
-    //   var class_name = 'grid-item grid-item-' + i
-    //   return (<div><img onClick={this.togglePlay} className={class_name} src={'http://localhost:8000' + image.image} alt='' /><p>{image.caption}</p></div>)
-    // })
-
     var images = this.state.images.map(image => {
       i++;
       var class_name = 'grid-item grid-item-' + i
-      return (
-        <div className={`${class_name} scene scene--card`}>
-          <div className={`gallery-card ${this.state.flippedImageId === image.image_id ? 'is-flipped' : ''}`}>
-            <div className="card__face card__face--front"><img onClick={() => this.imageClicked(image.image_id)} className={class_name} src={image.image} alt='' /><p>{image.caption}</p></div>
-            <div className="card__face card__face--back" onClick={() => this.imageClicked(image.image_id)}>{(this.state.flippedImageId === image.image_id) && <div><SpotifyPlayer id={image.image_id} /></div>}</div>
-          </div>
-        </div>)
+      return (<div><img onClick={this.togglePlay} className={class_name} src={image.image} alt='' /><p>{image.caption}</p></div>)
     })
-
     return (
-      <div>
-        {/* <SpotifyPlayer /> */}
-        <h1>The Purest of Doggos</h1>
-        <div className="grid-container">
-          {images}
-        </div>
+      <div className={this.state.isPhotoClicked ? 'app-wrapper' : ''}>
+        {this.state.isPhotoClicked && <div className="music-wrapper">
+          <div className="beautyfull-text">
+            <p>
+              This Song Reminds me that You are the Angel This Song Reminds me that You are the Angel This Song Reminds me that You are the Angel This Song Reminds me that You are the Angel
+            </p>
+          </div>
+          <SpotifyPlayer songCount={this.state.songCount} />
+        </div>}
         <div>
-          {/* <div className="scene scene--card">
-            <div className={`card ${this.state.isFlipped ? 'is-flipped' : ''}`}>
-              <div className="card__face card__face--front"><img onClick={() => this.setState({ isFlipped: !this.state.isFlipped })} src={'http://localhost:8000' + this.state.images[0]?.image} alt='' /><p>image.caption</p></div>
-              <div className="card__face card__face--back"><img onClick={() => this.setState({ isFlipped: !this.state.isFlipped })} src={'http://localhost:8000' + this.state.images[1]?.image} alt='' /><p>image.caption</p></div>
-            </div>
-          </div> */}
-          {/* {images} */}
+          <h1>The Purest of Doggos</h1>
+          <div className="grid-container">
+            {images}
+          </div>
         </div>
-        <audio id="myAudio">
-          <source src="http://localhost:8000/media/songs/Jeena.mp3" type="audio/mpeg" />
-        </audio>
       </div>
     )
   }
