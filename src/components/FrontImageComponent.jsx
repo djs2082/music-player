@@ -13,9 +13,9 @@ const FrontImageComponent = (props) => {
     }
   };
 
-  const handleMouseEnter = (id) => {
+  const handleMouseEnter = () => {
     setDimensions();
-    props.togglePlay(id);
+    // props.togglePlay(image);
   };
 
   return (
@@ -23,8 +23,8 @@ const FrontImageComponent = (props) => {
       <img
         ref={imageRef}
         // onLoad={setDimensions}
-        onMouseEnter={() => handleMouseEnter(image.image_id)}
-        onClick={() => props.togglePlay(image.id)}
+        onMouseEnter={() => handleMouseEnter()}
+        onClick={() => props.togglePlay(image)}
         src={image.image_url}
         alt=""
       />

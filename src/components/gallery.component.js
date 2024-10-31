@@ -7,19 +7,16 @@ import BackImageComponent from './BackImageComponent';
 import AddAImage from './AddAImage';
 import Loader from './Loader';
 import Spotify from '../services/spotify';
-import useUtilStore from '../services/useUtilStore';
+import SpotifyPlayer from './../components/spotify.player';
 
 
 const Gallery = () => {
   const [data, setData] = useState([]);
   // const [tracks, setTracks] = useState([]);
   const [dimensions, setDimensions] = useState({});
-  const [flippedImageId, setFlippedImageId] = useState(null);
-  const [isPhotoClicked, setIsPhotoClicked] = useState(false);
+  const [flippedImage, setFlippedImage] = useState(null);
   const [songCount, setSongCount] = useState(0);
   const [songPlayingStatus, setSongPlayingStatus] = useState(false);
-
-  const { loaderCount, increaseLoaderCount, decreaseLoaderCount } = useUtilStore();
 
   useEffect(() => {
     const spotify = new Spotify();
@@ -33,42 +30,64 @@ const Gallery = () => {
       .catch((error) => {
         console.log(error);
       })
+
+    const handleStorageChange = (event) => {
+      console.log(event);
+      if (event.key === "config_data") {
+        const dataFromStorage = localStorage.getItem("config_data");
+        console.log(JSON.parse(dataFromStorage));
+        if (dataFromStorage) {
+          setData(JSON.parse(dataFromStorage))
+        }
+      }
+    };
+
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, [])
 
   useEffect(() => {
     const dataFromStorage = localStorage.getItem("config_data");
+    console.log(JSON.parse(dataFromStorage));
     if (dataFromStorage) {
       setData(JSON.parse(dataFromStorage))
     }
   }, [localStorage.getItem("config_data")])
 
-  const togglePlay = (id) => {
-    if (flippedImageId === id) {
-      setFlippedImageId(null);
+  const togglePlay = (image) => {
+    console.log(flippedImage?.id === image.id)
+    if (flippedImage?.id === image.id) {
+      setFlippedImage(null);
       setSongPlayingStatus(false);
     }
     else {
-      setFlippedImageId(id)
+      setFlippedImage(image)
       setSongPlayingStatus(true);
+      setSongCount(songCount + 1)
     }
   }
 
 
   return (
-    <div className={isPhotoClicked ? 'app-wrapper' : ''} >
-      < div >
-        <h1>The Purest of Doggos</h1>
+    <div className='app-wrapper'>
+      <div>
         <AddAImage />
-        <div >
-          <div className="grid-container">
-            {data.map(image =>
-            (<ReactCardFlip isFlipped={flippedImageId === image.id} flipDirection="horizontal" >
-              <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setDimensions} />
-              <BackImageComponent togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions} />
-            </ReactCardFlip >)
-            )}
-          </div>
-        </div >
+        <SpotifyPlayer songId={flippedImage} songCount={songCount} />
+      </div >
+      <div >
+        <div className="grid-container">
+          {data.map(image =>
+          (<ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
+            <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setDimensions} />
+            <BackImageComponent showSong={flippedImage?.id === image.id} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions} />
+          </ReactCardFlip >)
+          )}
+        </div>
         <Loader />
       </div >
     </div >

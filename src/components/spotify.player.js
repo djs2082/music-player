@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SpotifyPlayer = (props) => {
+  const [song, setSong] = useState(null);
+
+
+  function triggerCustomClick(song) {
+    const element = document.getElementById('embed-wrapper');
+    const customEvent = new CustomEvent('customClick', {
+      detail: { song }
+    });
+    element.dispatchEvent(customEvent);
+  }
+
+
   useEffect(() => {
     const tracks = localStorage.getItem('tracks');
     const parsedTracks = JSON.parse(tracks);
     const index = Math.floor(Math.random() * (parsedTracks.length - 0) + 0);
-    const songId = props.songId || parsedTracks[index]
+    const songId = props.songId?.song || parsedTracks[index]
+    setSong(songId);
 
     window.onSpotifyIframeApiReady = (IFrameAPI) => {
-      console.log(songId)
       const element = document.getElementById(`embed-iframe`);
       const options = {
         uri: `spotify:track:${songId?.track}`,
@@ -16,21 +28,63 @@ const SpotifyPlayer = (props) => {
       };
       const callback = (EmbedController) => {
         EmbedController.play();
-        document.getElementById('embed-wrapper').addEventListener('click', () => {
+
+
+        document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
+          const { song } = event.detail;
+
+          console.log('Parameters:', song);
+          // Execute your logic with param1 and param2
           console.log("change song now")
-          const songs = localStorage.getItem('tracks').split(',')
-          const index = Math.floor(Math.random() * (songs.length - 0) + 0);
-          const songId = songs[index]
-          EmbedController.loadUri(`spotify:track:${songId}`)
-          EmbedController.play();
-        })
+          console.log(song);
+          if (!song) {
+            const songs = localStorage.getItem('tracks')
+            const parsedSongs = JSON.parse(songs);
+            const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
+            console.log(parsedSongs)
+            const songId = parsedSongs[index]
+            console.log(songId);
+            EmbedController.loadUri(`spotify:track:${songId.track}`)
+            EmbedController.play();
+          }
+          else {
+            EmbedController.loadUri(`spotify:track:${song.track}`)
+            EmbedController.play();
+          }
+        });
+
+
+
+        // document.getElementById('embed-wrapper').addEventListener('click', () => {
+        //   console.log("change song now")
+        //   console.log(song);
+        //   if (!song) {
+        //     const songs = localStorage.getItem('tracks')
+        //     const parsedSongs = JSON.parse(songs);
+        //     const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
+        //     console.log(parsedSongs)
+        //     const songId = parsedSongs[index]
+        //     console.log(songId);
+        //     EmbedController.loadUri(`spotify:track:${songId.track}`)
+        //     EmbedController.play();
+        //   }
+        //   else {
+        //     EmbedController.loadUri(`spotify:track:${song.track}`)
+        //     EmbedController.play();
+        //   }
+
+        // })
       };
       IFrameAPI.createController(element, options, callback)
     };
-  }, [])
+  }, [props.songId])
 
   useEffect(() => {
-    document.getElementById('embed-wrapper').click();
+
+    console.log(props.songId)
+    setSong(props.songId?.song);
+    // document.getElementById('embed-wrapper').click();
+    triggerCustomClick(props.songId?.song);
   }, [props.songCount])
 
   return (

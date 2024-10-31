@@ -79,7 +79,6 @@ const AddImage = ({ selectedImage, setSelectedImage }) => {
               >
                 <AddAPhotoIcon
                   sx={{
-                    color: "#5E5E5E",
                     width: "100px",
                     height: "100px",
                     fontSize: "1000px",

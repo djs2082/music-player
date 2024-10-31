@@ -3,6 +3,7 @@ import axios from 'axios';
 class Spotify {
   constructor() {
     this.accessToken = localStorage.getItem('accessToken');
+    console.log(process.env.REACT_APP_SPOTIFY_PLAYLIST_ID)
     this.spotifyPlayListId = process.env.REACT_APP_SPOTIFY_PLAYLIST_ID;
   }
 
