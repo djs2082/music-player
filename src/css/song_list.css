@@ -1,0 +1,75 @@
+.song-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 500px;
+  margin: 1rem;
+  row-gap: 16px;
+  border: 2px solid darkgrey;
+  padding: 4px;
+  background-color: bisque;
+}
+
+@media screen and (max-width: 600px) {
+  .song-list-wrapper {
+    margin: 0.25rem;
+  }
+}
+.song-wrapper {
+  display: grid;
+  grid-template-columns: 0.3fr 0.6fr 0.1fr;
+  column-gap: 32px;
+  align-items: center;
+  border: 1px solid grey;
+  padding: 1rem;
+  background-color: azure;
+}
+
+.song-wrapper.selected {
+  background-color: rgba(0, 120, 0, 0.7);
+  box-shadow: 0px 0px 50px #333;
+}
+
+@media screen and (max-width: 600px) {
+  .song-wrapper {
+    padding: 0.25rem;
+    column-gap: 4px;
+  }
+}
+
+.song-wrapper img {
+  width: 50px;
+  height: 50px;
+}
+
+.song-wrapper p {
+  font-size: 18px;
+  margin: 0;
+  /* width: 50px;
+  height: 50px; */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.song-list-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.song-list-wrapper {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.play-pause-icon {
+  font-size: 32px !important;
+}
+
+.MuiIconButton-root:focus {
+  outline: none;
+}
+
+#embed-wrapper {
+  /* position: absolute;
+  top: 0;
+  z-index: -1; */
+}

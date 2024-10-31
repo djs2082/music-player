@@ -1,0 +1,17 @@
+.image-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 32px 0;
+}
+.preview-wrapper {
+  width: 100%;
+  margin: 32px 0;
+}
+
+@media screen and (max-width: 600px) {
+  .image-upload-wrapper {
+    row-gap: 16px;
+  }
+}

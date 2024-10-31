@@ -2,18 +2,23 @@ import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './index.css';
 import { WEB_APP_URL } from '../../constants';
+import Aws from '../../services/aws';
 
 const Login = () => {
-
-
   const navigate = useNavigate();
 
-
   useEffect(() => {
-
+    const awsObj = new Aws();
+    awsObj.readConfig()
+      .then((res) => {
+        localStorage.setItem("config_data", res.Body)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     const expiresIn = localStorage.getItem("expiresIn");
     const issuedAt = localStorage.getItem("issuedAt");
-    console.log(expiresIn, issuedAt)
+
     if (expiresIn && issuedAt) {
       const currentTime = Math.floor(Date.now() / 1000);
       if (currentTime <= (parseInt(issuedAt) + parseInt(expiresIn))) {
@@ -72,6 +77,9 @@ const Login = () => {
   return (
     <div class="login-page">
       <button onClick={handleLogin} >SignIn with Spotify</button>
+      {/* <AddAImage /> */}
+      {/* <ImageUpload /> */}
+      {/* <ListFiles /> */}
     </div>
   )
 }

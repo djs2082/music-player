@@ -1,0 +1,19 @@
+import axios from 'axios';
+
+class Spotify {
+  constructor() {
+    this.accessToken = localStorage.getItem('accessToken');
+    this.spotifyPlayListId = process.env.REACT_APP_SPOTIFY_PLAYLIST_ID;
+  }
+
+
+  fetchPlayListTracks = () => {
+    return (axios.get(`https://api.spotify.com/v1/playlists/${this.spotifyPlayListId}/tracks`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`
+      }
+    }))
+  }
+}
+
+export default Spotify;

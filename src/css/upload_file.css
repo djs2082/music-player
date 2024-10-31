@@ -1,0 +1,112 @@
+.biodata-profile-picture-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 17rem;
+  position: sticky;
+  width: 300px;
+  min-height: 400px;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e8eaef;
+  background-color: rgba(218, 165, 32, 0.2);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .profile-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .biodata-profile-picture-wrapper {
+    margin: 0;
+  }
+}
+
+.profile-image-wrapper {
+  position: absolute;
+
+  opacity: 0.9;
+  z-index: 2;
+  width: 391px;
+  height: 591px;
+}
+
+@media screen and (max-width: 600px) {
+  .profile-image-wrapper {
+    width: 272px;
+    height: 337.6px;
+  }
+}
+
+.biodata-profile-picture {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 8rem;
+  position: sticky;
+  width: 300px;
+  /* height: 400px; */
+  border-radius: 16px;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  position: absolute !important;
+  top: -4px;
+  right: -4px;
+  background-color: rgba(111, 9, 9, 0.8) !important;
+  color: white !important;
+  border: none !important;
+  font-size: 8px !important;
+  cursor: pointer !important;
+  width: 32px;
+  height: 32px;
+  border-radius: 50% !important;
+  text-align: center !important;
+  transition: background-color 0.3s ease !important;
+  z-index: 1; /* Ensures the button stays above the image */
+}
+
+.replace-photo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 140px;
+  height: 36px;
+  border-radius: 10px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  z-index: 1; /* Ensures the button stays above the image */
+}
+
+@media screen and (max-width: 600px) {
+  .replace-photo-btn {
+    left: 0px;
+    top: 0px;
+    width: 90px;
+    height: 30px;
+    border-radius: 6px;
+  }
+}
+
+.close-btn:hover {
+  background-color: maroon;
+}

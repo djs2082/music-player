@@ -1,0 +1,7 @@
+.MuiLinearProgress-barColorPrimary {
+  background-color: rgba(128, 0, 0, 1) !important;
+}
+
+.MuiLinearProgress-colorPrimary {
+  background-color: white !important;
+}

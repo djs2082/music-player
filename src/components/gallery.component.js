@@ -1,165 +1,77 @@
-import React, { Component } from 'react'
-import axios from 'axios';
-
+import React, { useEffect, useState } from 'react'
+import ReactCardFlip from 'react-card-flip';
 
 import '../css/gallery.css';
-import SpotifyPlayer from './spotify.player';
-import { SERVER_URL } from '../constants';
-import image1 from './images/image1.jpeg'
-import image2 from './images/image2.jpeg'
-import image3 from './images/image3.jpeg'
-import image4 from './images/image4.jpeg'
-import image5 from './images/image5.jpeg'
-import image6 from './images/image6.jpeg'
-class Gallery extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      images: [{
-        image_id: 1,
-        image: image1,
-      }, {
-        image_id: 2,
-        image: image2
-      }, {
-        image_id: 3,
-        image: image3
-      }, {
-        image_id: 4,
-        image: image4
-      }, {
-        image_id: 5,
-        image: image5
-      }, {
-        image_id: 6,
-        image: image6
-      }],
-      song: `${SERVER_URL}/media/songs/Jeena.mp3`,
-      play: false,
-      tracks: [],
-      flippedImageId: null,
-      isPhotoClicked: false,
-      songCount: 0,
-    }
-    this.audio = new Audio("")
-
-  }
+import FrontImageComponent from './FrontImageComponent';
+import BackImageComponent from './BackImageComponent';
+import AddAImage from './AddAImage';
+import Loader from './Loader';
+import Spotify from '../services/spotify';
+import useUtilStore from '../services/useUtilStore';
 
 
-  componentDidMount = () => {
-    console.log(this.state.song)
-    const spotifyPlayListId = "5iLgD55NtxGmVFvjy8Fhpl";
+const Gallery = () => {
+  const [data, setData] = useState([]);
+  // const [tracks, setTracks] = useState([]);
+  const [dimensions, setDimensions] = useState({});
+  const [flippedImageId, setFlippedImageId] = useState(null);
+  const [isPhotoClicked, setIsPhotoClicked] = useState(false);
+  const [songCount, setSongCount] = useState(0);
+  const [songPlayingStatus, setSongPlayingStatus] = useState(false);
 
+  const { loaderCount, increaseLoaderCount, decreaseLoaderCount } = useUtilStore();
 
-    const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    const spotify = new Spotify();
 
-    axios.get(`https://api.spotify.com/v1/playlists/${spotifyPlayListId}/tracks`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
+    spotify.fetchPlayListTracks()
       .then((response) => {
-        // alert(response)
-        const playListTracks = response.data.items.map((track) => track.track.id)
-        this.setState({ tracks: playListTracks })
-        localStorage.setItem("tracks", playListTracks)
+        const playListTracks = response.data.items.map((track) => ({ track: track.track.id, image: track.track?.album?.images[0]?.url, name: track.track.name, previewUrl: track.track.preview_url }));
+        // setTracks(playListTracks);
+        localStorage.setItem("tracks", JSON.stringify(playListTracks))
       })
       .catch((error) => {
-
+        console.log(error);
       })
+  }, [])
 
-    // axios.get(`${SERVER_URL}/images`, {
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`
-    //   }
-    // })
-    //   .then(response => {
-    //     console.log(response)
-    //     if (response.status === 200) {
-    //       if (response.data.Status === 200) {
-    //         console.log(response.data)
-    //         this.setState({ images: response.data.Data });
-    //       }
-    //     }
-    //   })
-    //   .catch(error => {
-    //     alert(`${SERVER_URL}/images`)
-    //     console.log(error.toString())
-    //   });
-    // axios.get(`${SERVER_URL}/images/song`, {
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`
-    //   }
-    // })
-    //   .then(response => {
-    //     console.log(response)
-    //     if (response.status == 200) {
-    //       if (response.data.Status == 200) {
-    //         console.log(response.data.Data)
-    //         this.setState({ songs: response.data.Data });
-    //       }
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error.toString())
-    //   });
+  useEffect(() => {
+    const dataFromStorage = localStorage.getItem("config_data");
+    if (dataFromStorage) {
+      setData(JSON.parse(dataFromStorage))
+    }
+  }, [localStorage.getItem("config_data")])
 
-
-  }
-  togglePlay = () => {
-    this.setState({ isPhotoClicked: true, songCount: this.state.songCount + 1 })
-    // let index = Math.floor(Math.random() * (this.state.songs.length - 0) + 0);
-    // let songs = this.state.songs;
-    // songs[index].play = true
-    // let song = songs[index].song
-    // this.audio.pause()
-    // if ('audio' in songs[index]) {
-    //   this.audio = songs[index].audio
-    // }
-    // else {
-    //   songs[index].audio = new Audio(SERVER_URL + song)
-    //   this.audio = songs[index].audio
-    // }
-
-    // this.audio.play()
-
-    // console.log(index)
-
-    // this.setState({ songs: songs, song: SERVER_URL + song }, () => {
-
-    // });
+  const togglePlay = (id) => {
+    if (flippedImageId === id) {
+      setFlippedImageId(null);
+      setSongPlayingStatus(false);
+    }
+    else {
+      setFlippedImageId(id)
+      setSongPlayingStatus(true);
+    }
   }
 
-  imageClicked = (id) => {
-    console.log(id);
-    this.setState({ flippedImageId: id })
-  }
 
-  render() {
-    var i = -1;
-    var images = this.state.images.map(image => {
-      i++;
-      var class_name = 'grid-item grid-item-' + i
-      return (<div><img onClick={this.togglePlay} className={class_name} src={image.image} alt='' /><p>{image.caption}</p></div>)
-    })
-    return (
-      <div className={this.state.isPhotoClicked ? 'app-wrapper' : ''}>
-        {this.state.isPhotoClicked && <div className="music-wrapper">
-          <div className="beautyfull-text">
-            <p>
-              This Song Reminds me that You are the Angel This Song Reminds me that You are the Angel This Song Reminds me that You are the Angel This Song Reminds me that You are the Angel
-            </p>
-          </div>
-          <SpotifyPlayer songCount={this.state.songCount} />
-        </div>}
-        <div>
-          <h1>The Purest of Doggos</h1>
+  return (
+    <div className={isPhotoClicked ? 'app-wrapper' : ''} >
+      < div >
+        <h1>The Purest of Doggos</h1>
+        <AddAImage />
+        <div >
           <div className="grid-container">
-            {images}
+            {data.map(image =>
+            (<ReactCardFlip isFlipped={flippedImageId === image.id} flipDirection="horizontal" >
+              <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setDimensions} />
+              <BackImageComponent togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions} />
+            </ReactCardFlip >)
+            )}
           </div>
-        </div>
-      </div>
-    )
-  }
+        </div >
+        <Loader />
+      </div >
+    </div >
+  )
 }
 export default (Gallery)
