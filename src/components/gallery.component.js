@@ -81,9 +81,10 @@ const Gallery = () => {
         <SpotifyPlayer songId={flippedImage} songCount={songCount} />
       </div >
       <div >
+        {/* isFlipped={flippedImage?.id === image.id} */}
         <div className="grid-container">
           {data.map(image =>
-          (<ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
+          (<ReactCardFlip flipDirection="horizontal" >
             <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setDimensions} />
             <BackImageComponent showSong={flippedImage?.id === image.id} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions} />
           </ReactCardFlip >)
