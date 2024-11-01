@@ -33,6 +33,7 @@ const BackImageComponent = (props) => {
           decreaseLoaderCount();
         });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSong]);
   return (
     <div

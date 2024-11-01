@@ -57,6 +57,7 @@ const Gallery = () => {
     if (dataFromStorage) {
       setData(JSON.parse(dataFromStorage))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorage.getItem("config_data")])
 
   const togglePlay = (image) => {

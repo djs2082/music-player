@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const SpotifyPlayer = (props) => {
+  /* eslint-disable no-unused-vars */
   const [song, setSong] = useState(null);
 
 
@@ -85,6 +86,7 @@ const SpotifyPlayer = (props) => {
     setSong(props.songId?.song);
     // document.getElementById('embed-wrapper').click();
     triggerCustomClick(props.songId?.song);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.songCount])
 
   return (
