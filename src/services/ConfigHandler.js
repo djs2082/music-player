@@ -22,13 +22,11 @@ class ConfigHandler {
 
   updateSongInConfig = (id, song) => {
     const newJsonData = this.configDataJson.map((data) => {
-      console.log(data.id, id)
       if (data.id === id) {
         return ({ ...data, song })
       }
       return data;
     })
-    console.log(newJsonData);
     // const newJsonData = [...this.configDataJson]
     const jsonString = JSON.stringify(newJsonData);
     const jsonBlob = new Blob([jsonString], { type: 'application/json' });

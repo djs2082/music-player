@@ -10,17 +10,18 @@ const BackImageComponent = (props) => {
   const config = new ConfigHandler();
   const awsObj = new Aws();
   const { increaseLoaderCount, decreaseLoaderCount } = useUtilStore();
+  const [showBtn, setShowBtn] = useState(true);
+
+  console.log(props.dimensions);
+
   useEffect(() => {
-    console.log(selectedSong);
     if (!selectedSong) return;
-    console.log(selectedSong);
     increaseLoaderCount();
     config.updateSongInConfig(props.image.id, selectedSong).then((res) => {
       increaseLoaderCount();
       awsObj
         .readConfig()
         .then((res) => {
-          console.log(res.Body);
           decreaseLoaderCount();
           decreaseLoaderCount();
           localStorage.setItem("config_data", res.Body);
@@ -35,13 +36,39 @@ const BackImageComponent = (props) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSong]);
+
+  // useEffect(() => {
+  //   const cards = document.getElementsByClassName("react-card-flipper");
+  //   console.log(cards);
+  //   if (cards) {
+  //     cards[0].addEventListener("transitionstart", () => {
+  //       setShowBtn(false);
+  //       console.log("transitioning");
+  //     });
+
+  //     cards[0].addEventListener("transitionend", () => {
+  //       setShowBtn(true);
+  //       console.log("transitionend");
+  //     });
+  //   }
+  // }, []);
+
   return (
-    <div
-      style={props.dimensions}
-      className="back-card"
-      onClick={() => props.togglePlay(image.id)}
-    >
+    <div style={props.dimensions} className="back-card">
       <AddASong onSongSelected={setSelectedSong} />
+      {
+        <div className="card-back">
+          <button
+            id="open"
+            onClick={() => {
+              setShowBtn(false);
+              props.togglePlay(image.id);
+            }}
+          >
+            &gt;
+          </button>
+        </div>
+      }
     </div>
   );
 };

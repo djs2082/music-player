@@ -34,17 +34,12 @@ const SpotifyPlayer = (props) => {
         document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
           const { song } = event.detail;
 
-          console.log('Parameters:', song);
           // Execute your logic with param1 and param2
-          console.log("change song now")
-          console.log(song);
           if (!song) {
             const songs = localStorage.getItem('tracks')
             const parsedSongs = JSON.parse(songs);
             const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
-            console.log(parsedSongs)
             const songId = parsedSongs[index]
-            console.log(songId);
             EmbedController.loadUri(`spotify:track:${songId.track}`)
             EmbedController.play();
           }
@@ -82,7 +77,6 @@ const SpotifyPlayer = (props) => {
 
   useEffect(() => {
 
-    console.log(props.songId)
     setSong(props.songId?.song);
     // document.getElementById('embed-wrapper').click();
     triggerCustomClick(props.songId?.song);
