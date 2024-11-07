@@ -10,9 +10,6 @@ const BackImageComponent = (props) => {
   const config = new ConfigHandler();
   const awsObj = new Aws();
   const { increaseLoaderCount, decreaseLoaderCount } = useUtilStore();
-  const [showBtn, setShowBtn] = useState(true);
-
-  console.log(props.dimensions);
 
   useEffect(() => {
     if (!selectedSong) return;
@@ -61,7 +58,6 @@ const BackImageComponent = (props) => {
           <button
             id="open"
             onClick={() => {
-              setShowBtn(false);
               props.togglePlay(image.id);
             }}
           >

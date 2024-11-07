@@ -80,7 +80,7 @@ const Gallery = () => {
     <div className='app-wrapper'>
       <div>
         <AddAImage />
-        {/* <SpotifyPlayer songId={flippedImage} songCount={songCount} /> */}
+        <SpotifyPlayer songId={flippedImage} songCount={songCount} />
       </div >
       <div >
         {/* isFlipped={flippedImage?.id === image.id} */}

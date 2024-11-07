@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 const FrontImageComponent = (props) => {
   const image = props.image;
   const imageRef = useRef();
-  const [showBtn, setShowBtn] = useState(true);
 
   // useEffect(() => {
   //   const img = new Image();
@@ -60,7 +59,7 @@ const FrontImageComponent = (props) => {
     <div>
       <img
         ref={imageRef}
-        // onLoad={setDimensions}
+        // onLoad={setShowBtn(true)}
         // onMouseEnter={() => handleMouseEnter()}
         src={image.image_url}
         alt=""
@@ -71,7 +70,6 @@ const FrontImageComponent = (props) => {
           <button
             id="open"
             onClick={() => {
-              setShowBtn(false);
               setDimensions();
               props.togglePlay(image);
             }}
