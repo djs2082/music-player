@@ -50,10 +50,10 @@ const FrontImageComponent = (props) => {
   //   }
   // }, [image]);
 
-  const handleMouseEnter = () => {
-    setDimensions();
-    // props.togglePlay(image);
-  };
+  // const handleMouseEnter = () => {
+  //   setDimensions();
+  //   // props.togglePlay(image);
+  // };
 
   return (
     <div>
