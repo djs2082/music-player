@@ -12,8 +12,8 @@ import Aws from "../services/aws";
 import ConfigHandler from "../services/ConfigHandler";
 import useUtilStore from "../services/useUtilStore";
 
-const AddAImage = () => {
-  const [show, setShow] = useState(false);
+const AddAImage = ({ show, setShow }) => {
+  // const [show, setShow] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewPlayed, setPreveiwPlayed] = useState(false);
@@ -114,9 +114,9 @@ const AddAImage = () => {
 
   return (
     <>
-      <PrimaryButton onClick={() => setShow(true)}>
+      {/* <PrimaryButton onClick={() => setShow(true)}>
         Upload a New Image
-      </PrimaryButton>
+      </PrimaryButton> */}
       <CustomModal
         show={show}
         header={

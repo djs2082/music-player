@@ -89,9 +89,9 @@ h1 {
 }
 
 .card-front button {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+  position: fixed;
+  bottom: 0vh;
+  right: 0vh;
   border-bottom-right-radius: 5px;
   background: #f44;
   color: #fff;
@@ -136,18 +136,20 @@ h1 {
     0 0 1px rgba(0, 0, 0, 0.4);
 }
 
-.card-back button:focus {
-  outline: none;
-}
+@supports (-webkit-touch-callout: none) {
+  .card-front button {
+    bottom: 24px;
+  }
 
-.card-front button:focus {
-  outline: none;
+  .card-back button {
+    bottom: 24px;
+  }
 }
 
 @media screen and (min-width: 600px) {
   .card-front button {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     right: 22px;
     border-bottom-right-radius: 5px;
   }
@@ -157,4 +159,43 @@ h1 {
     right: 25px;
     border-bottom-right-radius: 5px;
   }
+}
+
+.card-back button:focus {
+  outline: none;
+}
+
+.card-front button:focus {
+  outline: none;
+}
+
+.song-player-wrapper {
+  width: 120px;
+  height: 120px;
+  position: fixed;
+  bottom: 30px;
+  right: 0;
+  z-index: 20;
+  cursor: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .song-player-wrapper {
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .song-player-wrapper {
+    visibility: hidden;
+  }
+}
+
+.song-player-hovered {
+  width: auto !important;
+  height: auto !important;
+}
+
+.BackgroundColorContainer_backgroundColorContainer__YZSQ7 {
+  display: none !important;
 }

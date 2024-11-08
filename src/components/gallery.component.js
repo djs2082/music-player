@@ -8,6 +8,7 @@ import AddAImage from './AddAImage';
 import Loader from './Loader';
 import Spotify from '../services/spotify';
 import SpotifyPlayer from './../components/spotify.player';
+import NavBar from './NabBar';
 
 
 const Gallery = () => {
@@ -17,6 +18,7 @@ const Gallery = () => {
   const [flippedImage, setFlippedImage] = useState(null);
   const [songCount, setSongCount] = useState(0);
   const [songPlayingStatus, setSongPlayingStatus] = useState(false);
+  const [musicPlyaerHovered, setMusicPlayerHovered] = useState(false);
 
   useEffect(() => {
     const spotify = new Spotify();
@@ -75,13 +77,17 @@ const Gallery = () => {
     setDimensions({ ...dimensions, [imageId.toString()]: dimensions })
   }
 
+  const handleMusicPlayeHover = () => {
+    setMusicPlayerHovered(true);
+  }
+
 
   return (
     <div className='app-wrapper'>
-      <div>
-        <AddAImage />
+      <NavBar />
+      <div onClick={(e) => e.stopPropagation()} className={`song-player-wrapper ${musicPlyaerHovered ? 'song-player-hovered' : ''}`} onMouseEnter={() => setMusicPlayerHovered(true)} onMouseLeave={() => setMusicPlayerHovered(false)}>
         <SpotifyPlayer songId={flippedImage} songCount={songCount} />
-      </div >
+      </div>
       <div >
         {/* isFlipped={flippedImage?.id === image.id} */}
         <div className="grid-container">

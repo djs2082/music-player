@@ -17,61 +17,64 @@ const SpotifyPlayer = (props) => {
   useEffect(() => {
     const tracks = localStorage.getItem('tracks');
     const parsedTracks = JSON.parse(tracks);
-    const index = Math.floor(Math.random() * (parsedTracks.length - 0) + 0);
-    const songId = props.songId?.song || parsedTracks[index]
-    setSong(songId);
-
-    window.onSpotifyIframeApiReady = (IFrameAPI) => {
-      const element = document.getElementById(`embed-iframe`);
-      const options = {
-        uri: `spotify:track:${songId?.track}`,
-        height: '100%'
-      };
-      const callback = (EmbedController) => {
-        EmbedController.play();
+    if (parsedTracks) {
+      const index = Math.floor(Math.random() * (parsedTracks?.length - 0) + 0);
+      const songId = props.songId?.song || parsedTracks[index]
+      setSong(songId);
 
 
-        document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
-          const { song } = event.detail;
-
-          // Execute your logic with param1 and param2
-          if (!song) {
-            const songs = localStorage.getItem('tracks')
-            const parsedSongs = JSON.parse(songs);
-            const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
-            const songId = parsedSongs[index]
-            EmbedController.loadUri(`spotify:track:${songId.track}`)
-            EmbedController.play();
-          }
-          else {
-            EmbedController.loadUri(`spotify:track:${song.track}`)
-            EmbedController.play();
-          }
-        });
+      window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const element = document.getElementById(`embed-iframe`);
+        const options = {
+          uri: `spotify:track:${songId?.track}`,
+          height: '100%'
+        };
+        const callback = (EmbedController) => {
+          EmbedController.play();
 
 
+          document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
+            const { song } = event.detail;
 
-        // document.getElementById('embed-wrapper').addEventListener('click', () => {
-        //   console.log("change song now")
-        //   console.log(song);
-        //   if (!song) {
-        //     const songs = localStorage.getItem('tracks')
-        //     const parsedSongs = JSON.parse(songs);
-        //     const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
-        //     console.log(parsedSongs)
-        //     const songId = parsedSongs[index]
-        //     console.log(songId);
-        //     EmbedController.loadUri(`spotify:track:${songId.track}`)
-        //     EmbedController.play();
-        //   }
-        //   else {
-        //     EmbedController.loadUri(`spotify:track:${song.track}`)
-        //     EmbedController.play();
-        //   }
+            // Execute your logic with param1 and param2
+            if (!song) {
+              const songs = localStorage.getItem('tracks')
+              const parsedSongs = JSON.parse(songs);
+              const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
+              const songId = parsedSongs[index]
+              EmbedController.loadUri(`spotify:track:${songId.track}`)
+              EmbedController.play();
+            }
+            else {
+              EmbedController.loadUri(`spotify:track:${song.track}`)
+              EmbedController.play();
+            }
+          });
 
-        // })
-      };
-      IFrameAPI.createController(element, options, callback)
+
+
+          // document.getElementById('embed-wrapper').addEventListener('click', () => {
+          //   console.log("change song now")
+          //   console.log(song);
+          //   if (!song) {
+          //     const songs = localStorage.getItem('tracks')
+          //     const parsedSongs = JSON.parse(songs);
+          //     const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
+          //     console.log(parsedSongs)
+          //     const songId = parsedSongs[index]
+          //     console.log(songId);
+          //     EmbedController.loadUri(`spotify:track:${songId.track}`)
+          //     EmbedController.play();
+          //   }
+          //   else {
+          //     EmbedController.loadUri(`spotify:track:${song.track}`)
+          //     EmbedController.play();
+          //   }
+
+          // })
+        };
+        IFrameAPI.createController(element, options, callback)
+      }
     };
   }, [props.songId])
 
