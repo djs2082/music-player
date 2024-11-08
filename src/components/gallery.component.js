@@ -4,7 +4,6 @@ import ReactCardFlip from 'react-card-flip';
 import '../css/gallery.css';
 import FrontImageComponent from './FrontImageComponent';
 import BackImageComponent from './BackImageComponent';
-import AddAImage from './AddAImage';
 import Loader from './Loader';
 import Spotify from '../services/spotify';
 import SpotifyPlayer from './../components/spotify.player';
@@ -76,11 +75,6 @@ const Gallery = () => {
   const setImageDimensions = (dimensions, imageId) => {
     setDimensions({ ...dimensions, [imageId.toString()]: dimensions })
   }
-
-  const handleMusicPlayeHover = () => {
-    setMusicPlayerHovered(true);
-  }
-
 
   return (
     <div className='app-wrapper'>
