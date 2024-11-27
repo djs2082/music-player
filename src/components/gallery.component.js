@@ -27,7 +27,7 @@ const Gallery = () => {
       .then((response) => {
         const playListTracks = response.data.items.map((track) => ({ track: track.track.id, image: track.track?.album?.images[0]?.url, name: track.track.name, previewUrl: track.track.preview_url }));
         // setTracks(playListTracks);
-        localStorage.setItem("tracks", JSON.stringify(playListTracks.slice(0, 2)))
+        localStorage.setItem("tracks", JSON.stringify(playListTracks))
       })
       .catch((error) => {
         console.log(error);
@@ -51,6 +51,16 @@ const Gallery = () => {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, [])
+
+  const updateFlippedImage = (image) => {
+    if (image?.id === flippedImage?.id) {
+      setFlippedImage(null);
+    }
+    else {
+      setFlippedImage(image);
+    }
+  }
+
 
   useEffect(() => {
     const dataFromStorage = localStorage.getItem("config_data");
@@ -77,6 +87,10 @@ const Gallery = () => {
     setDimensions({ ...dimensions, [imageId.toString()]: dimensions })
   }
 
+  const deleteImage = (image) => {
+
+  }
+
   return (
     <div className='app-wrapper'>
       <NavBar />
@@ -88,8 +102,8 @@ const Gallery = () => {
         <div className="grid-container">
           {data.map(image =>
           (<ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
-            <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => setFlippedImage(image)} />
-            <BackImageComponent setSelectedImage={setSelectedImage} showSong={(flippedImage?.id === image.id)} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} setFlippedImage={() => setFlippedImage(image)} />
+            <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => updateFlippedImage(image)} />
+            <BackImageComponent setSelectedImage={setSelectedImage} showSong={(flippedImage?.id === image.id)} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} setFlippedImage={() => updateFlippedImage(image)} deleteImage={() => deleteImage(image)} />
           </ReactCardFlip >)
           )}
         </div>

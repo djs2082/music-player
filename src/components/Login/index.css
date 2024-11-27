@@ -92,13 +92,17 @@
   color: #ef3b3a;
 }
 body {
-  background: #76b852; /* fallback for old browsers */
-  background: rgb(141, 194, 111);
-  background: linear-gradient(
+  /* background: #76b852; /* fallback for old browsers */
+  /* background: rgb(141, 194, 111); */
+  /* background: linear-gradient(
     90deg,
     rgba(141, 194, 111, 1) 0%,
     rgba(118, 184, 82, 1) 50%
-  );
+  ); */
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  /* background: linear-gradient(135deg, #ff758c, #ff7eb3); */
+
+  /* background-image: url("./../../images/backgroundImage.jpg"); */
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

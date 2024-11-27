@@ -32,6 +32,26 @@ class ConfigHandler {
     const jsonBlob = new Blob([jsonString], { type: 'application/json' });
     return this.aws.uploadConfig(jsonBlob)
   }
+
+  deleteTheConfig = (id) => {
+    const newJsonData = this.configDataJson.filter((data) => (data.id !== id))
+    const jsonString = JSON.stringify(newJsonData);
+    const jsonBlob = new Blob([jsonString], { type: 'application/json' });
+    return this.aws.uploadConfig(jsonBlob)
+  }
+
+  deleteSongInConfig = (id) => {
+    const newJsonData = this.configDataJson.map((data) => {
+      if (data.id === id) {
+        return ({ ...data, song: null })
+      }
+      return data;
+    })
+    // const newJsonData = [...this.configDataJson]
+    const jsonString = JSON.stringify(newJsonData);
+    const jsonBlob = new Blob([jsonString], { type: 'application/json' });
+    return this.aws.uploadConfig(jsonBlob)
+  }
 }
 
 export default ConfigHandler;

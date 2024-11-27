@@ -3,7 +3,7 @@ import PrimaryButton from "./Buttons/PrimaryButton";
 import CustomModal from "./Modals/Modal";
 import SelectSongList from "./SelectSongList";
 
-const AddASong = ({ onSongSelected }) => {
+const AddASong = ({ onSongSelected, selectedSong }) => {
   const [show, setShow] = useState(false);
   const [selectedTrack, setSelectedTrack] = useState(null);
   const tracks = localStorage.getItem("tracks");
@@ -11,7 +11,9 @@ const AddASong = ({ onSongSelected }) => {
 
   return (
     <>
-      <PrimaryButton onClick={() => setShow(true)}>Add a Song</PrimaryButton>
+      <PrimaryButton onClick={() => setShow(true)}>{`${
+        selectedSong ? "Edit" : "Add"
+      } a Song`}</PrimaryButton>
       <CustomModal
         show={show}
         header={

@@ -9,12 +9,16 @@ body {
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  justify-items: flex-end;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #333;
-  color: #fff;
+  background-color: #b33951;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
 }
 
 .navbar-logo {
@@ -31,6 +35,10 @@ body {
 
 .navbar-links li {
   margin-left: 1.5rem;
+  font-weight: 600;
+}
+.navbar-links li:first-child {
+  border-bottom: 1px solid white;
 }
 
 .navbar-links a {
@@ -54,6 +62,11 @@ body {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    display: grid;
+    grid-template-columns: calc(100% - 30px) 30px;
+    justify-items: center;
+  }
   .navbar-links {
     z-index: 10;
     display: none;
@@ -63,6 +76,7 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
   .navbar-links li {
@@ -81,9 +95,26 @@ body {
 
   .navbar-links.active {
     display: flex;
+    animation: highlight 0.5s ease-in-out forwards;
   }
 }
 
 button.navbar-toggle:focus {
   outline: none;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: transparent;
+    color: white;
+  }
+  50% {
+    background-color: #ff4b5c;
+    color: white;
+    transform: scale(1.2); /* Add a bounce effect */
+  }
+  100% {
+    background-color: #ff4b5c;
+    transform: scale(1); /* Return to normal size */
+  }
 }
