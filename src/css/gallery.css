@@ -228,22 +228,19 @@ h1 {
 
 @supports (-webkit-touch-callout: none) {
   .song-player-wrapper {
-    /* width: 320px;
+    width: 320px;
     height: 120px;
     bottom: 130px;
-    right: 0px; */
-    bottom: 0px;
-    right: 0px;
-    opacity: 1;
+    opacity: 0.0001;
     /* visibility: hidden; */
   }
 }
 
 @media screen and (max-width: 600px) {
   .song-player-wrapper {
-    bottom: 0px;
-    right: 0px;
-    opacity: 1;
+    height: 120px;
+    bottom: 130px;
+    opacity: 0.0001;
     /* visibility: hidden; */
   }
 }
