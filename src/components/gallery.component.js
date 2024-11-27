@@ -18,6 +18,8 @@ const Gallery = () => {
   const [songCount, setSongCount] = useState(0);
   const [songPlayingStatus, setSongPlayingStatus] = useState(false);
   const [musicPlyaerHovered, setMusicPlayerHovered] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
     const spotify = new Spotify();
@@ -62,11 +64,11 @@ const Gallery = () => {
   const togglePlay = (image) => {
     console.log(flippedImage, image)
     if (flippedImage?.id === image.id) {
-      setFlippedImage(null);
+      // setFlippedImage(null);
       setSongPlayingStatus(false);
     }
     else {
-      setFlippedImage(image)
+      // setFlippedImage(image)
       setSongPlayingStatus(true);
       setSongCount(songCount + 1)
     }
@@ -79,16 +81,16 @@ const Gallery = () => {
   return (
     <div className='app-wrapper'>
       <NavBar />
-      <div onClick={(e) => e.stopPropagation()} className={`song-player-wrapper ${musicPlyaerHovered ? 'song-player-hovered' : ''}`} onMouseEnter={() => setMusicPlayerHovered(true)} onMouseLeave={() => setMusicPlayerHovered(false)}>
-        <SpotifyPlayer songId={flippedImage} songCount={songCount} />
+      <div className={`song-player-wrapper ${musicPlyaerHovered ? 'song-player-hovered' : ''}`} onMouseEnter={() => setMusicPlayerHovered(true)} onMouseLeave={() => setMusicPlayerHovered(false)}>
+        <SpotifyPlayer songId={selectedImage} songCount={songCount} />
       </div>
       <div >
         {/* isFlipped={flippedImage?.id === image.id} */}
         <div className="grid-container">
           {data.map(image =>
           (<ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
-            <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} />
-            <BackImageComponent showSong={flippedImage?.id === image.id} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} />
+            <FrontImageComponent setIsFlipped={setIsFlipped} togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => setFlippedImage(image)} />
+            <BackImageComponent setSelectedImage={setSelectedImage} showSong={(flippedImage?.id === image.id)} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} setFlippedImage={() => setFlippedImage(image)} />
           </ReactCardFlip >)
           )}
         </div>

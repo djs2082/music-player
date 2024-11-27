@@ -30,12 +30,12 @@ const SpotifyPlayer = (props) => {
           height: '100%'
         };
         const callback = (EmbedController) => {
-          EmbedController.play();
+          // EmbedController.play();
 
 
           document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
-            const { song } = event.detail;
 
+            const { song } = event.detail;
             // Execute your logic with param1 and param2
             if (!song) {
               const songs = localStorage.getItem('tracks')

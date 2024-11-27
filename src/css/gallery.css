@@ -38,12 +38,20 @@ h1 {
     margin: 0 0 1.5rem 0;
   }
 }
-.grid-container div:hover img {
+/* .grid-container div:hover img {
   filter: grayscale(0);
 }
 .grid-container div:hover {
   border-color: coral;
+} */
+
+.selected-img-wrapper {
+  border-color: coral !important;
 }
+.selected-img {
+  filter: grayscale(0) !important;
+}
+
 .grid-container div img {
   width: 100%;
   filter: grayscale(100%);
@@ -181,12 +189,18 @@ h1 {
 
 @supports (-webkit-touch-callout: none) {
   .song-player-wrapper {
+    width: 320px;
+    height: 120px;
+    bottom: 130px;
+    right: 0px;
     visibility: hidden;
   }
 }
 
 @media screen and (max-width: 600px) {
   .song-player-wrapper {
+    bottom: 130px;
+    right: 130px;
     visibility: hidden;
   }
 }

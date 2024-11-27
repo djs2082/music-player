@@ -3,18 +3,6 @@ const FrontImageComponent = (props) => {
   const image = props.image;
   const imageRef = useRef();
 
-  // useEffect(() => {
-  //   const img = new Image();
-  //   console.log(img);
-  //   img.src = image.image_url;
-
-  //   img.onload = () => {
-  //     // img.width = img.naturalWidth;
-  //     console.log(`Image width: ${img.naturalWidth}px`);
-  //     console.log(`Image height: ${img.naturalHeight}px`);
-  //   };
-  // }, [image]);
-
   const setDimensions = () => {
     if (imageRef.current) {
       const { width, height } = imageRef.current.getBoundingClientRect();
@@ -29,38 +17,20 @@ const FrontImageComponent = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   const cards = document.getElementsByClassName("card-front");
-  //   console.log(cards);
-  //   if (cards) {
-  //     const id = image.id - 1;
-  //     console.log(id);
-  //     cards[id].addEventListener("transitionstart", () => {
-  //       setShowBtn(false);
-  //       cards[id].classList.add("transitioning");
-  //       console.log("transitioning");
-  //     });
-
-  //     cards[id].addEventListener("transitionend", () => {
-  //       setShowBtn(true);
-  //       cards[id].classList.remove("transitioning");
-
-  //       console.log("transitionend");
-  //     });
-  //   }
-  // }, [image]);
-
-  // const handleMouseEnter = () => {
-  //   setDimensions();
-  //   // props.togglePlay(image);
-  // };
-
   return (
-    <div>
+    <div
+      className={`${
+        image === props.selectedImage ? "selected-img-wrapper" : ""
+      }`}
+      onClick={() => {
+        // setDimensions();
+        props.setSelectedImage();
+        props.togglePlay(image);
+      }}
+    >
       <img
+        className={`${image === props.selectedImage ? "selected-img" : ""}`}
         ref={imageRef}
-        // onLoad={setShowBtn(true)}
-        // onMouseEnter={() => handleMouseEnter()}
         src={image.image_url}
         alt=""
       />
@@ -69,9 +39,12 @@ const FrontImageComponent = (props) => {
         <div className="card-front">
           <button
             id="open"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
+              // props.setSelectedImage();
+              props.setFlippedImage();
               setDimensions();
-              props.togglePlay(image);
+              // props.togglePlay(image);
             }}
           >
             &gt;
