@@ -229,8 +229,8 @@ h1 {
 @supports (-webkit-touch-callout: none) {
   .song-player-wrapper {
     width: 320px;
-    height: 120px;
-    bottom: 130px;
+    height: 20px;
+    bottom: 330px;
     opacity: 0.0001;
     /* visibility: hidden; */
   }
@@ -239,7 +239,7 @@ h1 {
 @media screen and (max-width: 600px) {
   .song-player-wrapper {
     height: 120px;
-    bottom: 130px;
+    bottom: 330px;
     opacity: 1;
     /* visibility: hidden; */
   }
