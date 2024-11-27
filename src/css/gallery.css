@@ -240,7 +240,7 @@ h1 {
   .song-player-wrapper {
     height: 120px;
     bottom: 130px;
-    opacity: 0.0001;
+    opacity: 1;
     /* visibility: hidden; */
   }
 }
