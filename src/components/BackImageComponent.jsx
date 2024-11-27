@@ -5,12 +5,9 @@ import ConfigHandler from "../services/ConfigHandler";
 import useUtilStore from "../services/useUtilStore";
 import Aws from "../services/aws";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import { IconButton } from "@mui/material";
 import PrimaryButton from "./Buttons/PrimaryButton";
-import CustomModal from "./Modals/Modal";
 import SecondaryButton from "./Buttons/SecondaryButton";
-import { Height } from "@mui/icons-material";
 import ConfirmModal from "./Modals/ConfirmModal";
 const BackImageComponent = (props) => {
   const image = props.image;
