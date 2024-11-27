@@ -234,7 +234,7 @@ h1 {
     right: 0px; */
     bottom: 0px;
     right: 0px;
-    opacity: 0.0001;
+    opacity: 1;
     /* visibility: hidden; */
   }
 }
@@ -243,7 +243,7 @@ h1 {
   .song-player-wrapper {
     bottom: 0px;
     right: 0px;
-    opacity: 0.0001;
+    opacity: 1;
     /* visibility: hidden; */
   }
 }
