@@ -19,7 +19,6 @@ const Gallery = () => {
   const [songPlayingStatus, setSongPlayingStatus] = useState(false);
   const [musicPlyaerHovered, setMusicPlayerHovered] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
     const spotify = new Spotify();
@@ -89,7 +88,7 @@ const Gallery = () => {
         <div className="grid-container">
           {data.map(image =>
           (<ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
-            <FrontImageComponent setIsFlipped={setIsFlipped} togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => setFlippedImage(image)} />
+            <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => setFlippedImage(image)} />
             <BackImageComponent setSelectedImage={setSelectedImage} showSong={(flippedImage?.id === image.id)} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} setFlippedImage={() => setFlippedImage(image)} />
           </ReactCardFlip >)
           )}
