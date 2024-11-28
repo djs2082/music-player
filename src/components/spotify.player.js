@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Media from "react-media";
 
 const SpotifyPlayer = (props) => {
   /* eslint-disable no-unused-vars */
