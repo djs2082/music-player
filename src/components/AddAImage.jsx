@@ -5,9 +5,9 @@ import ImageUpload from "./ImageUpload";
 import AddASong from "./AddASong";
 import "./../css/add_image.css";
 import SecondaryButton from "./Buttons/SecondaryButton";
-import { IconButton, Tooltip } from "@mui/material";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
+// import { IconButton, Tooltip } from "@mui/material";
+// import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+// import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import Aws from "../services/aws";
 import ConfigHandler from "../services/ConfigHandler";
 import useUtilStore from "../services/useUtilStore";
@@ -29,17 +29,17 @@ const AddAImage = ({ show, setShow }) => {
     setPreveiwPlayed(true);
   }, [selectedSong]);
 
-  const playPauseSongPreview = () => {
-    const audioRef = document.getElementById("preview-audio-track");
+  // const playPauseSongPreview = () => {
+  //   const audioRef = document.getElementById("preview-audio-track");
 
-    if (previewPlayed) audioRef.pause();
-    else audioRef.play();
-    setPreveiwPlayed(!previewPlayed);
+  //   if (previewPlayed) audioRef.pause();
+  //   else audioRef.play();
+  //   setPreveiwPlayed(!previewPlayed);
 
-    audioRef?.addEventListener("ended", () => {
-      setPreveiwPlayed(false);
-    });
-  };
+  //   audioRef?.addEventListener("ended", () => {
+  //     setPreveiwPlayed(false);
+  //   });
+  // };
 
   const onCancel = () => {
     setShow(false);
@@ -69,6 +69,7 @@ const AddAImage = ({ show, setShow }) => {
                 decreaseLoaderCount();
                 localStorage.setItem("config_data", res.Body);
                 onCancel();
+                window.location.reload();
               })
               .catch((error) => {
                 decreaseLoaderCount();

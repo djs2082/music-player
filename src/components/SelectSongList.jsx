@@ -6,7 +6,7 @@ import "./../css/song_list.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 const SelectSongList = ({ songs, selectedTrack, setSelectedTrack }) => {
   // const [selectedTrack, setSelectedTrack] = useState(null);
-  const [playingTrack, setPlayingTrack] = useState(null);
+  // const [playingTrack, setPlayingTrack] = useState(null);
   // const [toolTipValue, setToolTipValue] = useState("Select This Song");
   const [visibleTracks, setVisibleTracks] = useState([]);
 
@@ -38,10 +38,12 @@ const SelectSongList = ({ songs, selectedTrack, setSelectedTrack }) => {
     container.addEventListener("scroll", handleScroll);
 
     return () => container.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visibleTracks]);
 
   useEffect(() => {
     loadMoreTracks(); // Load initial tracks
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const updatePlayingTrack = (newTrack, index, e = null) => {
