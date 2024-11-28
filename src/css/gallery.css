@@ -218,7 +218,7 @@ h1 {
 
 .song-player-wrapper {
   width: 130px;
-  height: 80px;
+  height: 150px;
   overflow: hidden;
   position: fixed;
   bottom: 0px;
@@ -230,28 +230,19 @@ h1 {
   transition: width 0.5s;
 }
 
-.song-player-hovered {
-  width: 300px !important;
-  height: 80px !important;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0px !important;
-  right: 0 !important;
-  margin: 0;
-  z-index: 20;
-  cursor: none;
-  opacity: 1;
-  border-radius: 16px;
-}
-
-@supports (-webkit-touch-callout: none) {
-  .song-player-wrapper {
-    width: 320px;
-    height: 20px;
-    /* bottom: 330px; */
-    opacity: 0.0001;
-
-    /* visibility: hidden; */
+@media screen and (min-width: 600px) {
+  .song-player-hovered {
+    width: 300px !important;
+    height: 150px !important;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0px !important;
+    right: 0 !important;
+    margin: 0;
+    z-index: 20;
+    cursor: none;
+    opacity: 1;
+    border-radius: 16px;
   }
 }
 
@@ -267,19 +258,49 @@ h1 {
     /* opacity: 0.001; */
     /* visibility: hidden; */
   }
-  /* .song-player-hovered {
-    width: 300px !important;
+
+  .song-player-hovered {
+    /* width: 300px !important; */
+    /* height: 80px !important;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0px !important;
+    right: 0 !important;
+    margin: 0;
+    z-index: 20; */
+    cursor: none;
+    /* opacity: 1;
+    border-radius: 16px; */
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .song-player-wrapper {
+    height: 158px;
+    width: 100%;
+    cursor: none;
+    bottom: 0px;
+    border-radius: 16px;
+    padding: 0 0 8px 0;
+    /* padding: 0 0 4px 0; */
+    bottom: 0px;
+    /* right: 32px; */
+    /* opacity: 0.001; */
+    /* visibility: hidden; */
+  }
+  .song-player-hovered {
+    /* width: 300px !important;
     height: 80px !important;
     overflow: hidden;
     position: fixed;
     bottom: 0px !important;
     right: 0 !important;
     margin: 0;
-    z-index: 20;
+    z-index: 20; */
     cursor: none;
-    opacity: 1;
-    border-radius: 16px;
-  } */
+    /* opacity: 1;
+    border-radius: 16px; */
+  }
 }
 
 .BackgroundColorContainer_backgroundColorContainer__YZSQ7 {
