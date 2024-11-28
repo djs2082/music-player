@@ -17,7 +17,7 @@ const AddAImage = ({ show, setShow }) => {
   // const [show, setShow] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [previewPlayed, setPreveiwPlayed] = useState(false);
+  // const [previewPlayed, setPreveiwPlayed] = useState(false);
 
   const { increaseLoaderCount, decreaseLoaderCount, setUploadProgress } =
     useUtilStore();
@@ -26,7 +26,7 @@ const AddAImage = ({ show, setShow }) => {
     const audioRef = document.getElementById("preview-audio-track");
     audioRef?.load();
     audioRef?.play();
-    setPreveiwPlayed(true);
+    // setPreveiwPlayed(true);
   }, [selectedSong]);
 
   // const playPauseSongPreview = () => {
