@@ -8,6 +8,16 @@
 .preview-wrapper {
   width: 100%;
   margin: 32px 0;
+
+  height: 80px;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* column-gap: 32px; */
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 16px;
+  /* padding: 1rem; */
+  background-color: azure;
 }
 
 @media screen and (max-width: 600px) {

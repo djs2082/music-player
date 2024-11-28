@@ -15,6 +15,15 @@ class Spotify {
       }
     }))
   }
+
+
+  fetchTrackDetails = (trackId) => {
+    return (axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken} `
+      }
+    }))
+  }
 }
 
 export default Spotify;

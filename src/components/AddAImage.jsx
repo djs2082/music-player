@@ -11,6 +11,7 @@ import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import Aws from "../services/aws";
 import ConfigHandler from "../services/ConfigHandler";
 import useUtilStore from "../services/useUtilStore";
+import SpotifyPlayer from "./spotify.player";
 
 const AddAImage = ({ show, setShow }) => {
   // const [show, setShow] = useState(false);
@@ -85,31 +86,40 @@ const AddAImage = ({ show, setShow }) => {
   };
 
   const songPreview = () => {
+    console.log(selectedSong);
     return (
       <div className="preview-wrapper song-wrapper selected">
-        <img src={selectedSong?.image} alt=""></img>
-        <p>{selectedSong?.name}</p>
-        <span>
-          <Tooltip title={previewPlayed ? "Pause" : "Play"}>
-            <IconButton onClick={(e) => playPauseSongPreview()}>
-              {!previewPlayed ? (
-                <PlayCircleIcon
-                  className="play-pause-icon"
-                  sx={{
-                    "&:focus": { outline: "none" },
-                  }}
-                />
-              ) : (
-                <PauseCircleOutlineIcon className="play-pause-icon" />
-              )}
-            </IconButton>
-          </Tooltip>
-        </span>
-        <audio className="audio-track" id="preview-audio-track">
-          <source src={selectedSong?.previewUrl} type="audio/mpeg" />
-        </audio>
+        <SpotifyPlayer
+          songId={{ song: selectedSong }}
+          songCount={Math.floor(Math.random() * 1000)}
+        />
       </div>
     );
+    // return (
+    //   <div className="preview-wrapper song-wrapper selected">
+    //     <img src={selectedSong?.image} alt=""></img>
+    //     <p>{selectedSong?.name}</p>
+    //     <span>
+    //       <Tooltip title={previewPlayed ? "Pause" : "Play"}>
+    //         <IconButton onClick={(e) => playPauseSongPreview()}>
+    //           {!previewPlayed ? (
+    //             <PlayCircleIcon
+    //               className="play-pause-icon"
+    //               sx={{
+    //                 "&:focus": { outline: "none" },
+    //               }}
+    //             />
+    //           ) : (
+    //             <PauseCircleOutlineIcon className="play-pause-icon" />
+    //           )}
+    //         </IconButton>
+    //       </Tooltip>
+    //     </span>
+    //     <audio className="audio-track" id="preview-audio-track">
+    //       <source src={selectedSong?.previewUrl} type="audio/mpeg" />
+    //     </audio>
+    //   </div>
+    // );
   };
 
   return (
