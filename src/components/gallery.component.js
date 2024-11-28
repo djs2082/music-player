@@ -72,12 +72,13 @@ const Gallery = () => {
 
   const togglePlay = (image) => {
     console.log(flippedImage, image)
-    if (flippedImage?.id === image.id) {
+    if (selectedImage?.id === image.id) {
       // setFlippedImage(null);
       setSongPlayingStatus(false);
     }
     else {
       // setFlippedImage(image)
+      setSelectedImage(image)
       setSongPlayingStatus(true);
       setSongCount(songCount + 1)
     }

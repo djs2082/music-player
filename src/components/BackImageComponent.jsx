@@ -118,7 +118,14 @@ const BackImageComponent = (props) => {
       <AddASong selectedSong={image?.song} onSongSelected={setSelectedSong} />
       {image?.song && (
         <div>
-          <img src={image?.song?.image} alt="" />
+          <img
+            src={image?.song?.image}
+            alt=""
+            onClick={() => {
+              // props.setSelectedImage(image);
+              props.togglePlay(image);
+            }}
+          />
           <p>Selected song is {image?.song?.name}</p>
         </div>
       )}

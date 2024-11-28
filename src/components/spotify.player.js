@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Media from "react-media";
 
 const SpotifyPlayer = (props) => {
   /* eslint-disable no-unused-vars */
@@ -27,14 +28,26 @@ const SpotifyPlayer = (props) => {
         const element = document.getElementById(`embed-iframe`);
         const options = {
           uri: `spotify:track:${songId?.track}`,
-          height: '100%'
+          height: '100%',
+          autoPlay: 'true'
         };
         const callback = (EmbedController) => {
-          // EmbedController.play();
+          console.log("here")
+          EmbedController.play();
+          console.log(EmbedController)
+          // EmbedController?.connect()?.then(() => {
+          //   console.log('Spotify Player connected');
+          // });
+          // EmbedController?.contentWindow?.postMessage(
+          //   {
+          //     method: 'play',
+          //   },
+          //   '*'
+          // );
 
 
           document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
-
+            console.log(event)
             const { song } = event.detail;
             // Execute your logic with param1 and param2
             if (!song) {
@@ -43,11 +56,47 @@ const SpotifyPlayer = (props) => {
               const index = Math.floor(Math.random() * (parsedSongs.length - 0) + 0);
               const songId = parsedSongs[index]
               EmbedController.loadUri(`spotify:track:${songId.track}`)
-              EmbedController.play();
+              // EmbedController.play();
+              // EmbedController.addEventListener('click', () => {
+              //   EmbedController.contentWindow.postMessage(
+              //     {
+              //       method: 'play',
+              //     },
+              //     '*'
+              //   );
+              // })
+              // EmbedController.addEventListener('ready', () => {
+              //   // alert("Embed is ready!");
+              //   console.log(EmbedController)
+              //   EmbedController.play();
+              // });
             }
             else {
               EmbedController.loadUri(`spotify:track:${song.track}`)
-              EmbedController.play();
+              // EmbedController.play();
+              // EmbedController.onPlaybackUpdate(() => { })
+              EmbedController.on('error', (err, a) => {
+                console.log("whant now")
+              })
+
+              // EmbedController.addListener('ready', () => {
+              //   EmbedController.contentWindow.postMessage(
+              //     {
+              //       method: 'play',
+              //     },
+              //     '*'
+              //   );
+              // })
+              EmbedController.addListener('ready', (err, a) => {
+                console.error("error")
+                console.log(EmbedController)
+                // try {
+                EmbedController.play()
+                // }
+                // catch (error) {
+                //   console.log(error)
+                // }
+              });
             }
           });
 
@@ -73,7 +122,20 @@ const SpotifyPlayer = (props) => {
 
           // })
         };
-        IFrameAPI.createController(element, options, callback)
+        const newElement = document.getElementById(`embed-wrapper`);
+        console.log(newElement)
+        if (!element) {
+          const childDiv = document.createElement('div');
+          childDiv.id = 'embed-iframe';
+          console.log(childDiv, options)
+          IFrameAPI.createController(childDiv, options, callback)
+
+        }
+        else {
+          console.log(element)
+          IFrameAPI.createController(element, options, callback)
+
+        }
       }
     };
   }, [props.songId])
@@ -87,9 +149,17 @@ const SpotifyPlayer = (props) => {
   }, [props.songCount])
 
   return (
-    <div id="embed-wrapper" style={{ height: "30vh" }}>
-      <div id='embed-iframe'></div>
-    </div>
+    <>
+      {/* <div className="arrow"></div> */}
+      {/* <Media queries={{ mobile: "(max-width: 600px)" }}>
+        {(matches) => <>{matches.mobile && <div className="arrow"></div>}</>}
+      </Media> */}
+      <div id="embed-wrapper" style={{ height: "20vh" }} >
+        <div id='embed-iframe'></div>
+      </div>
+    </>
+
+
   )
 }
 export default SpotifyPlayer;

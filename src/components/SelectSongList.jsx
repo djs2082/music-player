@@ -31,6 +31,7 @@ const SelectSongList = ({ songs, selectedTrack, setSelectedTrack }) => {
         }
       });
       setPlayingTrack(newTrack);
+      console.log(newTrack);
       audioRef.play();
     }
   };
@@ -79,7 +80,11 @@ const SelectSongList = ({ songs, selectedTrack, setSelectedTrack }) => {
                     </IconButton>
                   </Tooltip>
                 </span>
-                <audio className="audio-track" id={`track-${track.track}`}>
+                <audio
+                  className="audio-track"
+                  id={`track-${track.track}`}
+                  autoPlay
+                >
                   <source src={track?.previewUrl} type="audio/mpeg" />
                 </audio>
               </div>
