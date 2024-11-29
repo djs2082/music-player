@@ -11,7 +11,6 @@ import SecondaryButton from "./Buttons/SecondaryButton";
 import Aws from "../services/aws";
 import ConfigHandler from "../services/ConfigHandler";
 import useUtilStore from "../services/useUtilStore";
-import SpotifyPlayer from "./spotify.player";
 
 const AddAImage = ({ show, setShow }) => {
   // const [show, setShow] = useState(false);
