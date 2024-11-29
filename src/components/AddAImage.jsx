@@ -90,10 +90,17 @@ const AddAImage = ({ show, setShow }) => {
     console.log(selectedSong);
     return (
       <div className="preview-wrapper song-wrapper selected">
-        <SpotifyPlayer
-          songId={{ song: selectedSong }}
-          songCount={Math.floor(Math.random() * 1000)}
-        />
+        <iframe
+          style={{ borderRadius: "12px" }}
+          width="100%"
+          height="80px"
+          title="Spotify Embed: My Path to Spotify: Women in Engineering "
+          frameborder="0"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\"
+          loading="lazy"
+          src={`https://open.spotify.com/embed/track/${selectedSong.track}?utm_source=oembed`}
+        ></iframe>
       </div>
     );
     // return (

@@ -117,7 +117,7 @@ const SelectSongList = ({ songs, selectedTrack, setSelectedTrack }) => {
               <iframe
                 style={{ borderRadius: "12px" }}
                 width="100%"
-                height={track.track === selectedTrack?.track ? "88px" : "80px"}
+                height="80px"
                 title="Spotify Embed: My Path to Spotify: Women in Engineering "
                 frameborder="0"
                 allowfullscreen

@@ -1,9 +1,148 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.login-page-wrapper {
+  height: 100vh;
+}
 .login-page {
-  width: 360px;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  height: 100vh;
+  object-fit: cover;
+  width: 100vw;
+  background-position: center;
+  background-size: cover;
+  /* width: 360px;
   padding: 8% 0 0;
-  margin: auto;
+  margin: auto; */
+  background-image: url("./../../images/couple.jpg");
+  /* position: absolute; */
+  /* height: 100vh; */
+}
+.login-btn {
+  margin-top: 32px !important;
+  background-color: rgb(29, 185, 84) !important;
+}
+.detective-img {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 50%;
+  width: 240px;
+  height: 240px;
+}
+.detective-msg {
+  width: 140px;
+  line-height: 48px;
+  position: absolute;
+  right: 24px;
+  bottom: 12%;
+  font-weight: 900;
+  font-size: 40px;
+}
+
+@media screen and (min-width: 600px) {
+  .detective-msg {
+    width: 140px;
+    line-height: 48px;
+    position: absolute;
+    left: 224px;
+    bottom: 15%;
+    font-weight: 900;
+    font-size: 40px;
+  }
+}
+.person-wrapper {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  justify-content: center;
+  width: 100%;
+  /* left: 32px; */
+  display: flex;
+  column-gap: 32px;
+}
+.person {
+  width: 150px;
+  height: 290px;
+  border: 4px solid cornflowerblue;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  margin-bottom: 8px;
+}
+@media screen and (min-width: 600px) {
+  .person {
+    width: 300px;
+    height: 500px;
+    border: 4px solid cornflowerblue;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    margin-bottom: 8px;
+  }
+}
+.person.selected {
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.6); /* Glowing shadow */
+  transform: scale(1.05); /* Slight zoom effect */
+  border-radius: 8px; /* Optional for rounded corners */
+}
+.person-msg {
+  font-family: "Satisfy", cursive;
+  font-size: 24px;
+  font-weight: 900;
+}
+/* Container for the arrow */
+.next-page-arrow {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 50%;
+  /* background-color: #007bff;  */
+  color: black;
+  cursor: pointer;
+  font-size: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  line-height: 1; /* Ensures arrow is vertically centered */
+}
+
+/* Add hover effect */
+.next-page-arrow:hover {
+  transform: translateX(5px); /* Slight movement to the right */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Use pseudo-element for the arrow */
+.next-page-arrow::before {
+  content: "➔"; /* Unicode arrow character */
+  font-family: Arial, sans-serif;
+}
+
+.previous-page-arrow {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 50%;
+  /* background-color: #007bff;  */
+  color: black;
+  cursor: pointer;
+  font-size: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  line-height: 1; /* Ensures arrow is vertically centered */
+}
+
+/* Add hover effect */
+.previous-page-arrow:hover {
+  transform: translateX(5px); /* Slight movement to the right */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Use pseudo-element for the arrow */
+.previous-page-arrow::before {
+  /* content: "←"; */
+  /* content: "←"; */
+  content: "←";
+  font-family: Arial, sans-serif;
 }
 .form {
   position: relative;
@@ -106,4 +245,383 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+}
+
+.door {
+  position: absolute;
+  bottom: 120px;
+  left: 170px;
+  width: 170px;
+  height: 286px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: perspective(2500px);
+}
+
+.door-front {
+  width: 170px;
+  height: 286px;
+  overflow: hidden;
+  transform-origin: left;
+  box-shadow: 30px 0 50px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  background-color: #924500;
+  z-index: 1;
+  transition: 0.5s;
+}
+
+.door-front:before,
+.door-front:after {
+  content: "";
+  position: absolute;
+  background-color: #924500;
+  width: 105px;
+  height: 75px;
+  border: 10px ridge #b05500;
+  left: 22.5px;
+}
+
+.door-front:before {
+  top: 25px;
+}
+
+.door-front:after {
+  top: 155px;
+}
+.knob {
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  background-color: #eeba0b;
+  top: 122px;
+  left: 145px;
+  border-radius: 2px;
+}
+
+.knob:before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color: #f1c83c;
+  width: 18px;
+  height: 18px;
+  left: -1px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.knob:after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 7px;
+  background-color: #333;
+  top: 20px;
+  left: 8.5px;
+}
+
+.door:hover .door-front {
+  transform: rotateY(-160deg);
+}
+
+.welcome-text {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  opacity: 0.9;
+  width: 170px;
+  /* left: 24px; */
+  font-size: 24px;
+  font-family: "Satisfy", cursive;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.door-back {
+  /* background-image: url("./../../images/me.jpg"); */
+  background-size: 170px;
+  object-fit: cover;
+  position: relative;
+  /* background: linear-gradient(
+    0deg,
+    rgba(193, 124, 116, 1) 13%,
+    rgba(73, 88, 103, 1) 13%,
+    rgba(79, 100, 124, 1) 15%,
+    rgba(87, 115, 153, 1) 15%
+  ); */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 10px solid #edf2f4;
+}
+
+.door-mat {
+  position: relative;
+  perspective: 200px;
+}
+
+.door-mat:before {
+  content: "";
+  position: absolute;
+  width: 205px;
+  height: 70px;
+  background: repeating-linear-gradient(
+    #a8763e,
+    #a8763e 10px,
+    #9d741a 10px,
+    #9d741a 20px
+  );
+  top: 4px;
+  right: -17px;
+  outline: 5px solid #a8763e;
+  transform: rotateX(45deg);
+}
+@media screen and (min-width: 600px) {
+  .door {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 400px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform: perspective(2500px);
+  }
+  .door-front {
+    width: 300px;
+    height: 400px;
+  }
+  .door-back {
+    background-size: 300px;
+  }
+  .knob {
+    width: 20px;
+    height: 30px;
+    top: 222px;
+    left: 245px;
+  }
+  .door-front:before,
+  .door-front:after {
+    content: "";
+    position: absolute;
+    background-color: #924500;
+    width: 205px;
+    height: 175px;
+    border: 10px ridge #b05500;
+    left: 22.5px;
+  }
+
+  .door-mat {
+    position: relative;
+    perspective: 200px;
+  }
+
+  .door-mat:before {
+    content: "";
+    position: absolute;
+    width: 349px;
+    height: 70px;
+    background: repeating-linear-gradient(
+      #a8763e,
+      #a8763e 10px,
+      #9d741a 10px,
+      #9d741a 20px
+    );
+    top: -5px;
+    right: -24px;
+    outline: 5px solid #a8763e;
+    transform: rotateX(45deg);
+  }
+  .welcome-text {
+    width: 300px;
+  }
+}
+
+.welcome-raksha {
+  background-image: url("./../../images/raksha.jpg");
+}
+
+.welcome-dilip {
+  background-image: url("./../../images/dj.jpg");
+}
+/* .rack {
+  position: absolute;
+  width: 7px;
+  height: 150px;
+  background-color: #a78a7f;
+  top: 90px;
+  left: 100px;
+}
+
+.rack:before {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 10px;
+  border-radius: 30px 30px 0 0;
+  background-color: #8c1c13;
+  top: 150px;
+  left: -30px;
+}
+
+.rack:after {
+  position: absolute;
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-bottom: 5px solid #a78a7f;
+  border-right: 5px solid #a78a7f;
+  border-bottom-right-radius: 100%;
+  top: 20px;
+}
+
+.hat {
+  position: absolute;
+  width: 60px;
+  height: 15px;
+  border-radius: 20px 20px 0 0;
+  background-color: #bf4342;
+  top: 80px;
+  left: 75px;
+}
+
+.hat:before {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  border-radius: 10px 10px 0 0;
+  background-color: #bf4342;
+  top: -20px;
+  left: 10px;
+  box-shadow: inset 0 -5px #e7d7c1;
+}
+
+.hat:after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 100px;
+  background-color: #735751;
+  border-radius: 50% 60% 20% 20% / 70% 70% 20% 20%;
+  top: 20px;
+  left: 45px;
+}
+
+.jacket {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: #e7d7c1;
+  border-radius: 50%;
+  top: 120px;
+  left: 137px;
+  box-shadow: 0 20px #e7d7c1;
+}
+
+.jacket:before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #a78a7f;
+  left: -10px;
+  top: 40px;
+}
+
+.jacket:after {
+  content: "";
+  position: absolute;
+  border-top: 15px solid #8c1c13;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  width: 0;
+  height: 0;
+  top: 40px;
+  left: -12px;
+} */
+
+/* Balloon style */
+.balloon {
+  position: absolute;
+  bottom: -100px; /* Start below the screen */
+  width: 60px;
+  height: 80px;
+  background: radial-gradient(circle at 50% 30%, #ff6f61, #ff3d3d) !important;
+  border-radius: 50%;
+  box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.7);
+  animation: float 10s linear infinite, drift 5s ease-in-out infinite;
+}
+
+/* Add the balloon string */
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background-color: #555;
+  transform: translateX(-50%);
+}
+
+/* Floating animation */
+@keyframes float {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-110vh); /* Move above the screen */
+  }
+}
+
+/* Horizontal drifting animation */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+/* Different balloons */
+.balloon:nth-child(3) {
+  left: 80%;
+  bottom: 80%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+  background: radial-gradient(circle at 50% 30%, #ff9a9e, #ff6f61) !important;
+}
+
+.balloon:nth-child(4) {
+  left: 20%;
+  bottom: 60%;
+  animation-duration: 10s;
+  animation-delay: 1s;
+  background: radial-gradient(circle at 50% 30%, #fad0c4, #fcb69f) !important;
+}
+
+.balloon:nth-child(5) {
+  left: 10%;
+  bottom: 30%;
+  animation-duration: 12s;
+  animation-delay: 2s;
+  background: radial-gradient(circle at 50% 30%, #a1c4fd, #c2e9fb) !important;
+}
+
+.balloon:nth-child(6) {
+  left: 80%;
+  bottom: 20%;
+  animation-duration: 14s;
+  animation-delay: 3s;
+  background: radial-gradient(circle at 50% 30%, #fbc2eb, #a6c1ee) !important;
 }

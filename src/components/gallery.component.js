@@ -34,21 +34,27 @@ const Gallery = () => {
       })
 
     const handleStorageChange = (event) => {
-      console.log(event);
-      if (event.key === "config_data") {
-        const dataFromStorage = localStorage.getItem("config_data");
-        if (dataFromStorage) {
-          setData(JSON.parse(dataFromStorage).slice(0, 2))
-        }
-      }
+      window.location.reload();
+      // console.log(event);
+      // if (event.key === "config_data") {
+      //   const dataFromStorage = localStorage.getItem("config_data");
+      //   if (dataFromStorage) {
+      //     setData(JSON.parse(dataFromStorage).slice(0, 2))
+      //   }
+      // }
     };
 
 
     // window.addEventListener("storage", handleStorageChange);
-
+    const dataFromStorage = localStorage.getItem("config_data");
+    console.log(dataFromStorage)
+    if (dataFromStorage) {
+      setData(JSON.parse(dataFromStorage))
+    }
     // Cleanup listener on unmount
     return () => {
       window.removeEventListener("storage", handleStorageChange);
+
     };
   }, [])
 
@@ -62,11 +68,13 @@ const Gallery = () => {
   }
 
 
+
   useEffect(() => {
     const dataFromStorage = localStorage.getItem("config_data");
     if (dataFromStorage) {
       setData(JSON.parse(dataFromStorage))
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorage.getItem("config_data")])
 
@@ -95,9 +103,11 @@ const Gallery = () => {
   return (
     <div className='app-wrapper'>
       <NavBar />
-      <div className={`song-player-wrapper ${musicPlyaerHovered ? 'song-player-hovered' : ''}`} onMouseEnter={() => setMusicPlayerHovered(true)} onMouseLeave={() => setMusicPlayerHovered(false)}>
-        <SpotifyPlayer songId={selectedImage} songCount={songCount} />
-      </div>
+      {selectedImage &&
+        <div className={`song-player-wrapper ${musicPlyaerHovered ? 'song-player-hovered' : ''}`} onMouseEnter={() => setMusicPlayerHovered(true)} onMouseLeave={() => setMusicPlayerHovered(false)}>
+          <SpotifyPlayer songId={selectedImage} songCount={songCount} />
+        </div>
+      }
       <div >
         {/* isFlipped={flippedImage?.id === image.id} */}
         <div className="grid-container">
