@@ -8,12 +8,21 @@ import detectivePng from './../../images/detective.png'
 import raksha from './../../images/raksha.jpg'
 import dj from './../../images/dj.jpg'
 import PrimaryButton from '../Buttons/PrimaryButton';
+import ConfirmModal from '../Modals/ConfirmModal';
+import TextField from '@mui/material/TextField';
+import SecondaryButton from '../Buttons/SecondaryButton';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Login = () => {
   const navigate = useNavigate();
   const [selectedPerson, setSelectedPerson] = useState(localStorage.getItem('appUser'));
   const whoIsThere = localStorage.getItem('appUser');
-  const [message, setMessage] = useState("Who Is There?")
+  const [message, setMessage] = useState("Who Is There?");
+  const [showModal, setShowModal] = useState(false);
+  const [password, setPassword] = useState("");
+  const [errorText, setErrorText] = useState(null)
+  const [showPassword, setShowPassword] = useState(false);
   const welcomeWord = (whoIsThere && whoIsThere === 'raksha') ? (rakshaWords[Math.floor(Math.random() * (rakshaWords.length))]) : (dilipWords[Math.floor(Math.random() * (dilipWords.length))])
   useEffect(() => {
     const awsObj = new Aws();
@@ -62,7 +71,7 @@ const Login = () => {
   const loginUrl = `${spotifyLoginEndPoint}?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`
 
   const handleLogin = () => {
-    window.location = loginUrl
+    setShowModal(true);
   }
 
   const getReturnedParamsFromSpotifyAuth = (hash) => {
@@ -94,6 +103,25 @@ const Login = () => {
   }
 
 
+  const verifyPassword = () => {
+    if (selectedPerson === 'raksha') {
+      if (password === process.env.REACT_APP_RAKSHA_SECRET_PASSWORD) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      if (password === process.env.REACT_APP_DILIP_SECRET_PASSWORD) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
   return (
     <>
       <div class="login-page-wrapper">
@@ -114,6 +142,46 @@ const Login = () => {
             <div class="balloon"></div>
             <div class="balloon"></div>
             <div className="previous-page-arrow" onClick={() => { localStorage.removeItem("appUser"); window.location.reload() }}></div>
+            <ConfirmModal style={{ width: "400px", height: "350px" }} show={showModal} onHide={() => setShowModal(false)} header="Confirm Your Identity!" body={<div><p>Please Confirm that you are {localStorage.getItem('appUser')} by Entering Secret Password</p>
+              <TextField
+                id="outlined-password-input"
+                label="Secret Password"
+                type={showPassword ? "text" : "password"}
+                error={errorText}
+                helperText={errorText}
+                autoComplete="current-password"
+                sx={{ width: "100%" }}
+                onChange={(e) => { setErrorText(""); setPassword(e.target.value) }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              /></div>}
+              primaryButton={
+                <PrimaryButton onClick={() => {
+                  if (verifyPassword()) {
+                    window.location = loginUrl
+                  }
+                  else {
+                    setErrorText("Incorrect Login Password");
+                  }
+                }}>Confirm</PrimaryButton>
+              }
+              secondaryButton={
+                <SecondaryButton onClick={() => setShowModal(false)}>
+                  Cancel
+                </SecondaryButton>
+              }
+            />
           </div>) : (<><div className='person-wrapper'>
             <div onClick={() => onSelect("raksha")}>
               <img className={`person ${(selectedPerson === 'raksha') ? 'selected' : ''}`} src={raksha} alt=""></img>
