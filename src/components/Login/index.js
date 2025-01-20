@@ -37,6 +37,9 @@ const Login = () => {
           if (currentTime <= (parseInt(issuedAt) + parseInt(expiresIn))) {
             navigate('/gallery')
           }
+          else {
+            localStorage.clear();
+          }
         }
         else {
 
