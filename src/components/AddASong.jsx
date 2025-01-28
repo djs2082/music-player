@@ -7,7 +7,7 @@ const AddASong = ({ onSongSelected, selectedSong }) => {
   const [show, setShow] = useState(false);
   const [selectedTrack, setSelectedTrack] = useState(null);
   const tracks = localStorage.getItem("tracks");
-  const parsedTracks = tracks ? JSON.parse(tracks) : null;
+  const parsedTracks = tracks ? JSON.parse(tracks).reverse() : null;
 
   return (
     <>

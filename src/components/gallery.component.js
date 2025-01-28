@@ -49,7 +49,7 @@ const Gallery = () => {
     const dataFromStorage = localStorage.getItem("config_data");
     console.log(dataFromStorage)
     if (dataFromStorage) {
-      setData(JSON.parse(dataFromStorage))
+      setData(JSON.parse(dataFromStorage).reverse())
     }
     // Cleanup listener on unmount
     return () => {
@@ -72,7 +72,7 @@ const Gallery = () => {
   useEffect(() => {
     const dataFromStorage = localStorage.getItem("config_data");
     if (dataFromStorage) {
-      setData(JSON.parse(dataFromStorage))
+      setData(JSON.parse(dataFromStorage).reverse())
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
