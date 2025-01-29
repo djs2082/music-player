@@ -24,11 +24,8 @@ const SpotifyPlayer = (props) => {
 
 
       window.onSpotifyIframeApiReady = (IFrameAPI) => {
-        console.log(
-          "JLKJKLJ"
-        )
+
         const element = document.getElementById(`embed-iframe`);
-        console.log(songId)
         const options = {
           uri: `spotify:track:${songId?.track}`,
           height: '100%',
@@ -39,7 +36,6 @@ const SpotifyPlayer = (props) => {
           EmbedController.play();
           document.getElementById('embed-wrapper').addEventListener('customClick', function (event) {
             const { song } = event.detail;
-            console.log(song)
             // Execute your logic with param1 and param2
             if (!song) {
               const songs = localStorage.getItem('tracks')
@@ -53,20 +49,25 @@ const SpotifyPlayer = (props) => {
               EmbedController.addListener('ready', () => {
                 EmbedController.play()
               });
+              EmbedController.addListener('playback_update', (e) => {
+                if (e.data.position === e.data.duration && e.data.position !== 0) {
+                  props.selectRandomImage()
+                }
+              });
             }
           });
         };
         const newElement = document.getElementById(`embed-wrapper`);
-        console.log(newElement)
+        // console.log(newElement)
         if (!element) {
           const childDiv = document.createElement('div');
           childDiv.id = 'embed-iframe';
-          console.log(childDiv, options)
+          // console.log(childDiv, options)
           IFrameAPI.createController(childDiv, options, callback)
 
         }
         else {
-          console.log(element)
+          // console.log(element)
           IFrameAPI.createController(element, options, callback)
 
         }
@@ -75,7 +76,7 @@ const SpotifyPlayer = (props) => {
   }, [props.songId])
 
   useEffect(() => {
-    console.log(props.songId?.song)
+    // console.log(props.songId?.song)
     setSong(props.songId?.song);
     // document.getElementById('embed-wrapper').click();
     triggerCustomClick(props.songId?.song);
