@@ -7,8 +7,8 @@ class ConfigHandler {
     this.aws = new Aws();
   }
 
-  addNewConfig = (song, imageUrl, author = null, note = null) => {
-    const id = this.configDataJson.length + 1;
+  addNewConfig = (song, imageUrl, location = null, date = null, author = null, note = null) => {
+    const id = this.configDataJson[this.configDataJson.length - 1].id + 1;
     const newJsonData = [...this.configDataJson, {
       id,
       image_url: imageUrl,
