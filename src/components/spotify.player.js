@@ -13,7 +13,6 @@ const SpotifyPlayer = (props) => {
     element.dispatchEvent(customEvent);
   }
 
-
   useEffect(() => {
     const tracks = localStorage.getItem('tracks');
     const parsedTracks = JSON.parse(tracks);
@@ -73,6 +72,7 @@ const SpotifyPlayer = (props) => {
         }
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.songId])
 
   useEffect(() => {
