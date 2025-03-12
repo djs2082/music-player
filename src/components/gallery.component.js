@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ReactCardFlip from 'react-card-flip';
 
 import '../css/gallery.css';
@@ -19,6 +19,8 @@ const Gallery = () => {
   const [songPlayingStatus, setSongPlayingStatus] = useState(false);
   const [musicPlyaerHovered, setMusicPlayerHovered] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const imageRefs = useRef([])
 
   useEffect(() => {
     const spotify = new Spotify();
@@ -47,7 +49,6 @@ const Gallery = () => {
 
     // window.addEventListener("storage", handleStorageChange);
     const dataFromStorage = localStorage.getItem("config_data");
-    console.log(dataFromStorage)
     if (dataFromStorage) {
       setData(JSON.parse(dataFromStorage).reverse())
     }
@@ -79,7 +80,6 @@ const Gallery = () => {
   }, [localStorage.getItem("config_data")])
 
   const togglePlay = (image) => {
-    console.log(flippedImage, image)
     if (selectedImage?.id === image.id) {
       // setFlippedImage(null);
       setSongPlayingStatus(false);
@@ -102,7 +102,15 @@ const Gallery = () => {
 
   const selectRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * data.length);
-    setSelectedImage(data[randomIndex])
+    // setSelectedImage(data[randomIndex])
+    scrollToImage(randomIndex)
+  }
+
+  const scrollToImage = (index) => {
+    imageRefs.current[index]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    })
   }
 
   return (
@@ -116,12 +124,14 @@ const Gallery = () => {
       <div >
         {/* isFlipped={flippedImage?.id === image.id} */}
         <div className="grid-container">
-          {data.map(image => {
-            console.log(image)
-            return (<ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
-              <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => updateFlippedImage(image)} />
-              <BackImageComponent setSelectedImage={setSelectedImage} showSong={(flippedImage?.id === image.id)} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} setFlippedImage={() => updateFlippedImage(image)} deleteImage={() => deleteImage(image)} />
-            </ReactCardFlip >)
+          {data.map((image, index) => {
+            return (
+              <div ref={(el) => imageRefs.current[index] = el}>
+                <ReactCardFlip isFlipped={flippedImage?.id === image.id} flipDirection="horizontal" >
+                  <FrontImageComponent togglePlay={togglePlay} image={image} setDimensions={setImageDimensions} selectedImage={selectedImage} setSelectedImage={() => setSelectedImage(image)} setFlippedImage={() => updateFlippedImage(image)} />
+                  <BackImageComponent setSelectedImage={setSelectedImage} showSong={(flippedImage?.id === image.id)} togglePlay={togglePlay} image={image} songCount={songCount} songPlayingStatus={songPlayingStatus} dimensions={dimensions[image.id.toString()]} setFlippedImage={() => updateFlippedImage(image)} deleteImage={() => deleteImage(image)} />
+                </ReactCardFlip >
+              </div>)
           }
           )}
         </div>

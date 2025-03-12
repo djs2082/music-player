@@ -30,6 +30,7 @@ const CustomModal = ({
   primaryButton,
   secondaryButton,
   style,
+  bodyStyle,
 }) => {
   const handleClose = (reason) => {
     if (reason && reasonsToAvoidModalHide.includes(reason)) return;
@@ -88,6 +89,7 @@ const CustomModal = ({
                       gap: "24px",
                       justifyContent: "center",
                       alignItems: "center",
+                      ...bodyStyle,
                     }}
                   >
                     {body}

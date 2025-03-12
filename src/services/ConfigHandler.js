@@ -12,6 +12,8 @@ class ConfigHandler {
     const newJsonData = [...this.configDataJson, {
       id,
       image_url: imageUrl,
+      location,
+      date,
       song,
       notes: []
     }]
@@ -20,10 +22,10 @@ class ConfigHandler {
     return this.aws.uploadConfig(jsonBlob)
   }
 
-  updateSongInConfig = (id, song) => {
+  updateSongInConfig = (id, song, location = null, date = null) => {
     const newJsonData = this.configDataJson.map((data) => {
       if (data.id === id) {
-        return ({ ...data, song })
+        return ({ ...data, song, location, date })
       }
       return data;
     })

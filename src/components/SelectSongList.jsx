@@ -22,10 +22,6 @@ const SelectSongList = ({ songs, selectedTrack, setSelectedTrack }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(
-        containerRef.current.scrollTop + containerRef.current.clientHeight
-      );
-      console.log(containerRef.current.scrollHeight);
       if (
         containerRef.current.scrollHeight -
         (containerRef.current.scrollTop + containerRef.current.clientHeight < 2)

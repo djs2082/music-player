@@ -11,11 +11,14 @@ import SecondaryButton from "./Buttons/SecondaryButton";
 import Aws from "../services/aws";
 import ConfigHandler from "../services/ConfigHandler";
 import useUtilStore from "../services/useUtilStore";
+import InputBox from "./InputBox";
 
 const AddAImage = ({ show, setShow }) => {
   // const [show, setShow] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
   // const [previewPlayed, setPreveiwPlayed] = useState(false);
 
   const { increaseLoaderCount, decreaseLoaderCount, setUploadProgress } =
@@ -57,7 +60,7 @@ const AddAImage = ({ show, setShow }) => {
         const publicUrl = `https://dr-music-player.s3.amazonaws.com/${selectedImage.name}`;
         increaseLoaderCount();
         configHandler
-          .addNewConfig(selectedSong, publicUrl)
+          .addNewConfig(selectedSong, publicUrl, location, date)
           .then((err, data) => {
             increaseLoaderCount();
             awsObj
@@ -85,8 +88,12 @@ const AddAImage = ({ show, setShow }) => {
       });
   };
 
+  const selectASong = (track, location, date) => {
+    setSelectedSong(track);
+    setLocation(location);
+    setDate(date);
+  };
   const songPreview = () => {
-    console.log(selectedSong);
     return (
       <div className="preview-wrapper song-wrapper selected">
         <iframe
@@ -146,11 +153,26 @@ const AddAImage = ({ show, setShow }) => {
         sx={{ border: "none" }}
         body={
           <div className="image-upload-wrapper">
+            {/* <InputBox
+              sx={{ width: "100%", marginBottom: "16px" }}
+              label="Location"
+              placeholder="Enter Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+            <InputBox
+              sx={{ width: "100%", marginBottom: "16px" }}
+              label="Enter Date"
+              placeholder="DD/MM/YYYY"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            /> */}
             <ImageUpload
               selectedImage={selectedImage}
               setSelectedImage={setSelectedImage}
             />
-            <AddASong onSongSelected={setSelectedSong} />
+            <AddASong onSongSelected={selectASong} />
+
             {selectedSong && songPreview()}
           </div>
         }

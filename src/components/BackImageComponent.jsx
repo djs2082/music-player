@@ -12,34 +12,45 @@ import ConfirmModal from "./Modals/ConfirmModal";
 const BackImageComponent = (props) => {
   const image = props.image;
   const [selectedSong, setSelectedSong] = useState(null);
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeleteSongModal, setShowDeleteSongModal] = useState(false);
   const config = new ConfigHandler();
   const awsObj = new Aws();
   const { increaseLoaderCount, decreaseLoaderCount } = useUtilStore();
 
+  const selectASong = (track, location, date) => {
+    setSelectedSong(track);
+    setLocation(location);
+    setDate(date);
+  };
+
   useEffect(() => {
-    if (!selectedSong) return;
+    // if (!selectedSong) return;
     increaseLoaderCount();
-    config.updateSongInConfig(props.image.id, selectedSong).then((res) => {
-      increaseLoaderCount();
-      awsObj
-        .readConfig()
-        .then((res) => {
-          decreaseLoaderCount();
-          decreaseLoaderCount();
-          localStorage.setItem("config_data", res.Body);
-        })
-        .catch((error) => {
-          decreaseLoaderCount();
-          console.log(error);
-        })
-        .catch(() => {
-          decreaseLoaderCount();
-        });
-    });
+    config
+      .updateSongInConfig(props.image.id, selectedSong, location, date)
+      .then((res) => {
+        increaseLoaderCount();
+        awsObj
+          .readConfig()
+          .then((res) => {
+            decreaseLoaderCount();
+            decreaseLoaderCount();
+            localStorage.setItem("config_data", res.Body);
+          })
+          .catch((error) => {
+            decreaseLoaderCount();
+            console.log(error);
+          })
+          .catch(() => {
+            decreaseLoaderCount();
+          });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSong]);
+  }, [selectedSong, location, date]);
 
   // useEffect(() => {
   //   const cards = document.getElementsByClassName("react-card-flipper");
@@ -115,7 +126,7 @@ const BackImageComponent = (props) => {
           </IconButton>
         </PrimaryButton>
       </div>
-      <AddASong selectedSong={image?.song} onSongSelected={setSelectedSong} />
+      <AddASong selectedSong={image?.song} onSongSelected={selectASong} />
       {image?.song && (
         <div>
           <img
@@ -126,7 +137,10 @@ const BackImageComponent = (props) => {
               props.togglePlay(image);
             }}
           />
-          <p>Selected song is {image?.song?.name}</p>
+          {/* <p>Selected song is {image?.song?.name}</p> */}
+          {/* <p>Date: {image?.song?.date}</p> */}
+          {image?.location && <p>Location: {image?.location}</p>}
+          {image?.date && <p>Date: {image?.date}</p>}
         </div>
       )}
       {
@@ -134,7 +148,6 @@ const BackImageComponent = (props) => {
           <button
             id="open"
             onClick={(e) => {
-              console.log(image);
               e.stopPropagation();
               // props.setSelectedImage();
               props.setFlippedImage();

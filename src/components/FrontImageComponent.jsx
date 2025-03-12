@@ -29,7 +29,14 @@ const FrontImageComponent = (props) => {
       }}
     >
       <img
-        className={`${image === props.selectedImage ? "selected-img" : ""}`}
+        id="progressBorder"
+        className={`${
+          image === props.selectedImage ? "selected-img" : ""
+        }  progress-border`}
+        style={{
+          border:
+            "2px solid conic-gradient(rgb(29, 185, 84) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0.1) 100%)",
+        }}
         ref={imageRef}
         src={image.image_url}
         alt=""
