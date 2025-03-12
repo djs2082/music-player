@@ -18,7 +18,6 @@
     "dotenv": "^16.4.7",
     "file-type": "^19.6.0",
     "list-react-files": "^0.2.0",
-    "parthui": "^4.0.4",
     "react": "^18.0.0",
     "react-card-flip": "^1.2.3",
     "react-dom": "^18.0.0",
